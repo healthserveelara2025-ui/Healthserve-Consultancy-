@@ -19,6 +19,42 @@ const MIME_TYPES = {
 
 const server = http.createServer((req, res) => {
   let reqPath = req.url.split('?')[0];
+
+  // Lead capture endpoint (Failsafe local logging)
+  if (reqPath === '/api/leads') {
+    const leadsFile = path.join(__dirname, 'leads.json');
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', () => {
+        try {
+          const lead = JSON.parse(body || '{}');
+          let leads = [];
+          if (fs.existsSync(leadsFile)) {
+            try { leads = JSON.parse(fs.readFileSync(leadsFile, 'utf8')); } catch (e) {}
+          }
+          leads.unshift(lead);
+          fs.writeFileSync(leadsFile, JSON.stringify(leads, null, 2));
+          console.log(`[Lead Recorded] Total leads: ${leads.length} | Name: ${lead.name || 'Anonymous'} | Phone: ${lead.whatsapp || 'N/A'}`);
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+          res.end(JSON.stringify({ status: 'success', recorded: true, count: leads.length }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ status: 'error', message: err.message }));
+        }
+      });
+      return;
+    } else if (req.method === 'GET') {
+      let leads = [];
+      if (fs.existsSync(leadsFile)) {
+        try { leads = JSON.parse(fs.readFileSync(leadsFile, 'utf8')); } catch (e) {}
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ count: leads.length, leads }));
+      return;
+    }
+  }
+
   if (reqPath === '/') reqPath = '/index.html';
 
   const filePath = path.join(__dirname, reqPath);

@@ -51,8 +51,9 @@
     console.log('[Analytics Event]', eventName, eventPayload);
   }
 
-  // Google Sheets Webhook URL (see google-sheets-script.js for setup instructions)
-  const GOOGLE_SHEET_WEBHOOK_URL = '';
+  // Google Sheets Webhook URL (Target Sheet: https://docs.google.com/spreadsheets/d/1g6W43-BMVKRhh_C87RNIshg3TF54gIt9Mcq8bQLn6pQ/edit)
+  // Deployed via Google Apps Script (see google-sheets-script.js for 30-sec instructions)
+  let GOOGLE_SHEET_WEBHOOK_URL = '';
 
   function sendLeadToGoogleSheet(extra = {}) {
     const payload = {
@@ -70,6 +71,7 @@
       utm_term: leadState.utm_term || '',
       gclid: leadState.gclid || '',
       landing_page: window.location.href,
+      target_sheet: 'https://docs.google.com/spreadsheets/d/1g6W43-BMVKRhh_C87RNIshg3TF54gIt9Mcq8bQLn6pQ/edit',
       ...extra
     };
 
@@ -78,19 +80,34 @@
       const db = JSON.parse(localStorage.getItem('healthserve_sheet_leads') || '[]');
       db.unshift(payload);
       localStorage.setItem('healthserve_sheet_leads', JSON.stringify(db));
-      console.log('📊 [Google Sheets Integration] Lead recorded (Total leads logged: ' + db.length + '):', payload);
+      console.log('📊 [Lead Capture] Lead stored in browser cache (Total leads: ' + db.length + '):', payload);
     } catch (e) {}
 
-    // 2. Dispatch to live Google Sheet Apps Script webhook if configured
-    if (GOOGLE_SHEET_WEBHOOK_URL && GOOGLE_SHEET_WEBHOOK_URL.startsWith('https://script.google.com/')) {
+    // 2. Dispatch to local Node server endpoint (/api/leads) for server-side persistence
+    try {
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(r => r.json()).then(res => {
+        console.log('💾 [Lead Capture] Saved to server leads.json:', res);
+      }).catch(() => {});
+    } catch (e) {}
+
+    // 3. Dispatch to live Google Sheet Apps Script webhook if configured
+    const activeWebhook = GOOGLE_SHEET_WEBHOOK_URL || (function() {
+      try { return localStorage.getItem('healthserve_webhook_url') || ''; } catch(e) { return ''; }
+    })();
+
+    if (activeWebhook && activeWebhook.startsWith('https://script.google.com/')) {
       try {
-        fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+        fetch(activeWebhook, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         }).then(() => {
-          console.log('✅ [Google Sheets Integration] Transmitted to Google Sheet Webhook successfully');
+          console.log('✅ [Google Sheets Integration] Transmitted to G Ads Lead Sheet successfully');
         }).catch(err => {
           console.warn('⚠️ [Google Sheets Integration] Fetch warning:', err);
         });
@@ -106,6 +123,14 @@
   // ==========================================
   function parseUrlParameters() {
     const urlParams = new URLSearchParams(window.location.search);
+    const webhookParam = urlParams.get('webhook') || urlParams.get('sheet_webhook');
+    if (webhookParam && webhookParam.startsWith('https://script.google.com/')) {
+      try {
+        localStorage.setItem('healthserve_webhook_url', webhookParam);
+        console.log('🔗 [Google Sheet Integration] Active Webhook registered from URL:', webhookParam);
+      } catch(e) {}
+    }
+
     return {
       utm_source: urlParams.get('utm_source') || 'google_search_ads',
       utm_medium: urlParams.get('utm_medium') || 'cpc',
@@ -707,7 +732,7 @@
 
       // Visual feedback in UI
       if (syncStatusEl) {
-        syncStatusEl.innerHTML = '<span class="live-dot" style="background:#10B981"></span> Recorded in Admissions Database &amp; Google Sheet! Opening WhatsApp...';
+        syncStatusEl.innerHTML = '<span class="live-dot" style="background:#10B981"></span> Verification request submitted! Connecting to WhatsApp specialist...';
         syncStatusEl.style.color = '#047857';
       }
 
