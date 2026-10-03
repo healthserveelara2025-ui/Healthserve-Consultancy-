@@ -52,8 +52,7 @@
   }
 
   // Google Sheets Webhook URL (Target Sheet: https://docs.google.com/spreadsheets/d/1g6W43-BMVKRhh_C87RNIshg3TF54gIt9Mcq8bQLn6pQ/edit)
-  // Deployed via Google Apps Script (see google-sheets-script.js for 30-sec instructions)
-  let GOOGLE_SHEET_WEBHOOK_URL = '';
+  let GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwnOWJqKBqWrr1DJplMY2rtkE4DCWctzZigfU11UjO1FB9kgqsZu5NIWKaeXSDc7Jiz1g/exec';
 
   function sendLeadToGoogleSheet(extra = {}) {
     const payload = {
