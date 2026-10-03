@@ -181,6 +181,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     initEntryGate();
     initHeroVideo();
+    initHeroInsiderCard();
     initDestinations();
     initSituationSelector();
     initHookEligibilityForm();
@@ -194,6 +195,44 @@
     // Track entry gate view on initial load
     trackEvent('entry_gate_view');
   });
+
+  // ==========================================
+  // HERO INSIDER CARD CONTROLLER (PARALLAX & SCROLL)
+  // ==========================================
+  function initHeroInsiderCard() {
+    const insiderCard = document.getElementById('heroInsiderCard');
+    const scrollCta = document.getElementById('heroInsiderScrollCta');
+
+    if (scrollCta) {
+      scrollCta.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector('.education-hook-section') || document.getElementById('destinations') || document.getElementById('hookEligibilitySection');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          trackEvent('hero_insider_scroll_click');
+        }
+      });
+    }
+
+    // Subtle performance-friendly parallax for desktop only
+    if (insiderCard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            if (window.innerWidth > 992) {
+              const scrollY = window.scrollY;
+              if (scrollY < 650) {
+                insiderCard.style.transform = `translateY(${scrollY * 0.04}px)`;
+              }
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+  }
 
   // ==========================================
   // 1. ENTRY GATE CONTROLLER
