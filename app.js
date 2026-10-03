@@ -1389,28 +1389,36 @@ Could you please review my eligibility and guide me on the next step?`;
     syncAndScrollToForm(destination = '', stage = '') {
       if (destination) {
         leadState.destination = destination;
-        const destPill = document.querySelector(`.pill-option[data-field="destination"][data-value="${destination}"]`);
-        if (destPill) {
-          destPill.closest('.select-pill-grid').querySelectorAll('.pill-option').forEach(p => p.classList.remove('selected'));
-          destPill.classList.add('selected');
+        const hookDest = document.getElementById('hookDest');
+        if (hookDest) {
+          for (let opt of hookDest.options) {
+            if (opt.value.toLowerCase().includes(destination.toLowerCase()) || destination.toLowerCase().includes(opt.value.toLowerCase())) {
+              hookDest.value = opt.value;
+              break;
+            }
+          }
         }
       }
 
       if (stage) {
         leadState.journey_stage = stage;
-        const stagePill = document.querySelector(`.pill-option[data-field="stage"][data-value="${stage}"]`);
-        if (stagePill) {
-          stagePill.closest('.select-pill-grid').querySelectorAll('.pill-option').forEach(p => p.classList.remove('selected'));
-          stagePill.classList.add('selected');
+        const hookStage = document.getElementById('hookStage');
+        if (hookStage) {
+          for (let opt of hookStage.options) {
+            if (opt.value.toLowerCase().includes(stage.toLowerCase()) || stage.toLowerCase().includes(opt.value.toLowerCase())) {
+              hookStage.value = opt.value;
+              break;
+            }
+          }
         }
       }
 
       saveLeadState();
       updateDynamicWhatsAppLinks();
 
-      const qualSection = document.getElementById('qualificationSection');
-      if (qualSection) {
-        qualSection.scrollIntoView({ behavior: 'smooth' });
+      const formSection = document.getElementById('hookEligibilitySection') || document.getElementById('hookEligibilityForm');
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     },
 
