@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GCC Healthcare Career & Licensing Guidance | Healthserve Health Consultancy</title>
+  <meta name="description" content="Guidance on healthcare licensing and eligibility for nurses, doctors, and allied healthcare professionals moving from India, Nepal and abroad to the UAE and GCC.">
+  <link rel="canonical" href="https://healthserve.ae/services/gcc-licensing">
+  <link rel="icon" type="image/png" href="healthserve-logo.png">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="GCC Healthcare Licensing & Eligibility Guidance | Healthserve Dubai">
+  <meta property="og:description" content="Discover your exact regulatory pathway for DHA, MOHAP, DOH, SCFHS, DHP, NHRA & OMSB. Free eligibility guidance from Dubai licensing specialists.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://healthserve.ae/">
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Structured Data: Organization & ProfessionalService -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Healthserve Health Consultancy",
+    "url": "https://healthserve.ae/",
+    "logo": "https://healthserve.ae/favicon.png",
+    "description": "Dubai-based healthcare consultancy advising healthcare professionals on GCC licensing, DataFlow primary source verification, and career readiness.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dubai",
+      "addressCountry": "AE"
+    },
+    "telephone": "+971-50-272-0059",
+    "priceRange": "$$",
+    "areaServed": ["AE", "SA", "QA", "BH", "OM"]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       CRITICAL ENTRY GATE (THE 3-QUESTION ONBOARDING)
+       ========================================================================== -->
+  <div class="entry-gate-overlay" id="entryGateOverlay" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="entry-gate-card">
+      <div class="entry-gate-header">
+        <img src="healthserve-logo.png" alt="Healthserve Health Consultancy" class="entry-gate-logo">
+        <span class="gate-badge">
+          <span class="live-dot"></span> Official Healthcare Advisory · Dubai, UAE
+        </span>
+        <h1 id="gateTitle">Your GCC Healthcare Journey Starts Here</h1>
+        <p>Get clear guidance on eligibility, licensing and the steps involved in building your healthcare career in the GCC.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.84rem; color: var(--primary-deep); font-weight: 600;">
+          Before we show you the right pathway, we'd like to understand how we can communicate with you.
+        </p>
+      </div>
+
+      <form id="entryGateForm" novalidate>
+        <!-- Question 1: English Communication Comfort -->
+        <div class="gate-form-group">
+          <label class="gate-label">
+            <span class="step-num">1</span> How comfortable are you communicating in English?
+          </label>
+          <div class="radio-cards-grid">
+            <label class="radio-card active">
+              <input type="radio" name="gateEnglish" value="Comfortable in English" checked>
+              <span class="radio-card-title">Comfortable in English</span>
+              <span class="radio-card-desc">I can communicate comfortably in clinical English.</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="gateEnglish" value="Simple explanations">
+              <span class="radio-card-title">Simple Explanations</span>
+              <span class="radio-card-desc">I understand English but prefer simple step-by-step guidance.</span>
+            </label>
+          </div>
+          <p class="input-explanation">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:3px;">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            Our licensing specialists and healthcare consultants are based in Dubai and communicate with professionals in English.
+          </p>
+        </div>
+
+        <!-- Question 2: Name -->
+        <div class="gate-form-group" id="gateNameGroup">
+          <label for="gateName" class="gate-label">
+            <span class="step-num">2</span> What's your name?
+          </label>
+          <input type="text" id="gateName" class="form-input-text" placeholder="Full Name as per official records" required autocomplete="name">
+          <div class="gate-field-error" id="gateNameError" style="display: none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Please enter your full name as per official documents</span>
+          </div>
+        </div>
+
+        <!-- Question 3: Phone / WhatsApp Number -->
+        <div class="gate-form-group" id="gatePhoneGroup">
+          <label for="gatePhone" class="gate-label">
+            <span class="step-num">3</span> Where can our team reach you?
+          </label>
+          <div class="phone-input-wrap">
+            <select id="gateCountryCode" class="country-code-select" aria-label="Country Code">
+              <option value="+91" selected>🇮🇳 India (+91)</option>
+              <option value="+977">🇳🇵 Nepal (+977)</option>
+              <option value="+971">🇦🇪 UAE (+971)</option>
+              <option value="+966">🇸🇦 Saudi Arabia (+966)</option>
+              <option value="+974">🇶🇦 Qatar (+974)</option>
+              <option value="+973">🇧🇭 Bahrain (+973)</option>
+              <option value="+968">🇴🇲 Oman (+968)</option>
+              <option value="+63">🇵🇭 Philippines (+63)</option>
+            </select>
+            <input type="tel" id="gatePhone" class="form-input-text" placeholder="WhatsApp / Mobile Number" required autocomplete="tel">
+          </div>
+          <div class="gate-field-error" id="gatePhoneError" style="display: none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Please enter a valid WhatsApp or mobile number (min. 7 digits)</span>
+          </div>
+        </div>
+
+        <div class="gate-trust-footer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Your details are collected to help us respond to your healthcare career or licensing enquiry. No spam, ever.</span>
+        </div>
+
+        <button type="submit" class="btn-primary" id="gateSubmitBtn">
+          <span class="btn-text">CONTINUE TO MY GUIDANCE →</span>
+        </button>
+
+        <div class="gate-skip-action">
+          <button type="button" class="gate-skip-link" id="gateSkipBtn">
+            Skip this step and explore general licensing guidance first →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       PERSISTENT TOP HEADER (CONVERSION DESIGN, NO OUTBOUND LEAKS)
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-wrap">
+        <a href="#hero" aria-label="Healthserve Health Consultancy Homepage">
+          <img src="healthserve-logo.png" alt="Healthserve Health Consultancy" class="brand-logo" width="160" height="38">
+        </a>
+        <span class="brand-location">
+          <span class="live-dot"></span> Dubai, UAE
+        </span>
+      </div>
+
+      <div class="header-actions">
+        <div class="header-consultant-status">
+          <span class="live-dot"></span>
+          <span>Specialists Active</span>
+        </div>
+        <a href="https://wa.me/971502720059" class="btn-whatsapp js-whatsapp-link" aria-label="Chat on WhatsApp with Healthserve Specialist">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 2C6.504 2 2.016 6.488 2.016 12.015c0 1.93.551 3.73 1.504 5.253L2 22l4.89-1.488c1.47.85 3.17 1.33 4.981 1.33 5.527 0 10.016-4.488 10.016-10.015C21.887 6.488 17.558 2 12.031 2zm5.79 14.18c-.24.67-1.39 1.25-1.92 1.32-.51.07-1.16.1-3.37-.8-2.65-1.08-4.35-3.8-4.48-3.97-.13-.17-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.53-.32.7-.32.18 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.83.82 1.97.07.14.12.3.02.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.47-.14.13-.29.28-.13.55.17.28.74 1.22 1.6 1.98 1.1.98 2.03 1.29 2.31 1.43.29.14.46.12.63-.08.18-.19.74-.86.94-1.15.2-.3.4-.25.68-.15.27.1 1.74.82 2.04.97.3.15.5.23.57.35.08.12.08.72-.16 1.39z"/>
+          </svg>
+          <span>WhatsApp Specialist</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- User Welcome Bar (Dynamically unlocked after gate) -->
+  <div class="user-welcome-bar" id="userWelcomeBar">
+    <div class="container user-welcome-inner">
+      <div class="user-welcome-text">
+        Welcome, <strong id="welcomeUserName">Professional</strong> — Your personalized GCC licensing pathways are unlocked below.
+      </div>
+      <div>
+        <a href="#qualificationSection" class="section-tag" style="margin: 0; background: #FFFFFF; font-size: 0.74rem;">
+          Jump to Assessment ↓
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- ==========================================================================
+         SECTION 1: HERO SECTION
+         ========================================================================== -->
+    <section class="hero-section" id="hero">
+      <!-- Full Cover Dynamic Background (HD Clinical Video with Fallback) -->
+      <div class="hero-bg-cover">
+        <video class="hero-bg-video" id="heroBgVideo" autoplay muted loop playsinline poster="hero-nurse-gcc.jpg" preload="auto">
+          <source src="healthcare-bg-video.webm" type="video/webm">
+          <img src="hero-nurse-gcc.jpg" alt="South Asian registered nurse in modern Dubai healthcare clinic" class="hero-bg-img" fetchpriority="high">
+        </video>
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-glow-orb-1"></div>
+        <div class="hero-glow-orb-2"></div>
+        <button class="hero-video-toggle" id="heroVideoToggle" type="button" aria-label="Pause or play background video">
+          <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span class="video-status-text">Video Playing</span>
+        </button>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag-wrap">
+            <span class="live-dot"></span> GCC Healthcare Professional Pathway
+          </div>
+          <h1 class="hero-headline">
+            Want to Work as a Healthcare Professional in the <span class="highlight-glow">GCC</span>?
+          </h1>
+          <p class="hero-subhead">
+            Your job search starts with something most people discover too late: professional eligibility and licensing.
+          </p>
+          <p class="hero-body">
+            Getting a healthcare job in the GCC isn't simply about finding a vacancy and submitting your CV. Each destination has its own healthcare regulatory authority, professional requirements and licensing pathway.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#hookEligibilitySection" class="btn-primary" id="heroCtaPrimary">
+              START MY ELIGIBILITY CHECK — FREE
+            </a>
+            <a href="https://wa.me/971502720059" class="btn-secondary-glass js-whatsapp-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 2C6.504 2 2.016 6.488 2.016 12.015c0 1.93.551 3.73 1.504 5.253L2 22l4.89-1.488c1.47.85 3.17 1.33 4.981 1.33 5.527 0 10.016-4.488 10.016-10.015C21.887 6.488 17.558 2 12.031 2zm5.79 14.18c-.24.67-1.39 1.25-1.92 1.32-.51.07-1.16.1-3.37-.8-2.65-1.08-4.35-3.8-4.48-3.97-.13-.17-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.53-.32.7-.32.18 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.83.82 1.97.07.14.12.3.02.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.47-.14.13-.29.28-.13.55.17.28.74 1.22 1.6 1.98 1.1.98 2.03 1.29 2.31 1.43.29.14.46.12.63-.08.18-.19.74-.86.94-1.15.2-.3.4-.25.68-.15.27.1 1.74.82 2.04.97.3.15.5.23.57.35.08.12.08.72-.16 1.39z"/>
+              </svg>
+              <span>WhatsApp Licensing Specialist</span>
+            </a>
+          </div>
+
+          <div class="hero-trust-row">
+            <div class="hero-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span>Dubai-Based Firm</span>
+            </div>
+            <div class="hero-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>DHA · DOH · MOHAP</span>
+            </div>
+            <div class="hero-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+              <span>Zero Guesswork</span>
+            </div>
+          </div>
+
+          <div class="regulator-pill-strip">
+            <span class="reg-pill-glass">DHA (Dubai)</span>
+            <span class="reg-pill-glass">DOH (Abu Dhabi)</span>
+            <span class="reg-pill-glass">MOHAP (UAE)</span>
+            <span class="reg-pill-glass">SCFHS (Saudi Arabia)</span>
+            <span class="reg-pill-glass">DHP (Qatar)</span>
+            <span class="reg-pill-glass">NHRA (Bahrain)</span>
+            <span class="reg-pill-glass">OMSB (Oman)</span>
+          </div>
+        </div>
+
+        <div class="hero-glass-card">
+          <div class="hero-glass-card-header">
+            <span style="background: rgba(48, 196, 242, 0.2); color: #7DD3FC; padding: 0.25rem 0.65rem; border-radius: 4px; font-size: 0.74rem; font-weight: 700; text-transform: uppercase;">Direct Admissions & Verification</span>
+            <h3 style="margin-top: 0.65rem;">GCC Unified PQR Pre-Screening</h3>
+            <p>Know exactly which health authority your degree & clinical years qualify you for before applying.</p>
+          </div>
+
+          <div class="hero-glass-stats-grid">
+            <div class="hero-glass-stat-box">
+              <span class="hero-glass-stat-val">100%</span>
+              <span class="hero-glass-stat-lbl">PQR Aligned</span>
+            </div>
+            <div class="hero-glass-stat-box">
+              <span class="hero-glass-stat-val">7</span>
+              <span class="hero-glass-stat-lbl">Gulf Regulators</span>
+            </div>
+          </div>
+
+          <ul class="hero-glass-feature-list">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Primary Source Verification (DataFlow) guidance</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Prometric & Pearson VUE CBT exam scheduling</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Direct WhatsApp advisory with Dubai team</span>
+            </li>
+          </ul>
+
+          <a href="#hookEligibilitySection" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.92rem; padding: 0.85rem;">
+            Check My Specific Profile Now →
+          </a>
+
+          <div class="hero-glass-badge">
+            <span class="live-dot"></span> Active in Dubai, UAE
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: THE CURIOSITY / EDUCATION HOOK
+         ========================================================================== -->
+    <section class="education-hook-section">
+      <div class="container container-narrow">
+        <div class="hook-card">
+          <span class="hook-tag">Critical Truth About Gulf Healthcare Careers</span>
+          <h2 class="hook-question">
+            Before You Apply for the Job, Ask One Question:<br>
+            <span>"Am I eligible to practise in that country?"</span>
+          </h2>
+
+          <p class="hook-explanation">
+            Healthcare professionals cannot simply rely on their home country qualification and apply for any healthcare opening across the Gulf. Before any licensed medical facility can sponsor you, the relevant destination regulatory authority establishes formal legal requirements for registration and licensing.
+          </p>
+
+          <div class="hook-factors-grid">
+            <div class="factor-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Specific Profession</span>
+            </div>
+            <div class="factor-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Exact Qualification Tier</span>
+            </div>
+            <div class="factor-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Post-Registration Experience</span>
+            </div>
+            <div class="factor-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Council Good Standing</span>
+            </div>
+            <div class="factor-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>DataFlow Verification</span>
+            </div>
+            <div class="factor-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>CBT / Prometric Exam</span>
+            </div>
+          </div>
+
+          <div class="hook-reassurance-box">
+            <p>
+              <strong>Notice:</strong> Requirements are not identical for everyone. Your exact requirements depend on your profession, qualification, experience and destination.
+            </p>
+          </div>
+
+          <!-- EMBEDDED ELIGIBILITY PRE-SCREENING & GOOGLE SHEETS FORM -->
+          <div class="hook-eligibility-form-wrap" id="hookEligibilitySection">
+            <div class="hook-form-header">
+              <span class="hook-form-badge">Interactive Pre-Screening</span>
+              <h3>Check Your Eligibility & Get Direct WhatsApp Guidance</h3>
+              <p>Answer four simple questions below. Your enquiry is automatically logged in our admissions database and instantly routed to our Dubai licensing specialists on WhatsApp.</p>
+            </div>
+
+            <form id="hookEligibilityForm" class="hook-eligibility-form" novalidate>
+              <!-- Row 1: Profession & Target Country -->
+              <div class="hook-form-row">
+                <div class="hook-form-col">
+                  <label for="hookProf" class="hook-field-label">1. What is your healthcare profession?</label>
+                  <select id="hookProf" class="hook-field-select" required>
+                    <option value="" disabled selected>Select Your Profession</option>
+                    <option value="Nurse (B.Sc / Post Basic)">Nurse (B.Sc / Post Basic)</option>
+                    <option value="Nurse (GNM / Diploma)">Nurse (GNM / Diploma)</option>
+                    <option value="General Practitioner (MBBS)">General Practitioner (MBBS)</option>
+                    <option value="Specialist Doctor (MD/MS/DNB)">Specialist Doctor (MD/MS/DNB)</option>
+                    <option value="Allied Healthcare Professional">Allied Healthcare (Physio / Lab / Radiology)</option>
+                    <option value="Pharmacist (B.Pharm / Pharm.D)">Pharmacist (B.Pharm / Pharm.D)</option>
+                    <option value="Dentist (BDS / MDS)">Dentist (BDS / MDS)</option>
+                  </select>
+                </div>
+
+                <div class="hook-form-col">
+                  <label for="hookDest" class="hook-field-label">2. Target GCC Destination</label>
+                  <select id="hookDest" class="hook-field-select" required>
+                    <option value="" disabled selected>Select Target Authority</option>
+                    <option value="Dubai (DHA)">Dubai (DHA — Sheryan)</option>
+                    <option value="Abu Dhabi (DOH)">Abu Dhabi (DOH / HAAD)</option>
+                    <option value="UAE Northern Emirates (MOHAP)">UAE Northern Emirates (MOHAP)</option>
+                    <option value="Saudi Arabia (SCFHS)">Saudi Arabia (SCFHS — Mumaris+)</option>
+                    <option value="Qatar (DHP)">Qatar (DHP / MoPH)</option>
+                    <option value="Bahrain (NHRA)">Bahrain (NHRA)</option>
+                    <option value="Oman (OMSB)">Oman (OMSB / MoH)</option>
+                    <option value="Not Sure / Need Recommendation">Not Sure / Recommend Best Pathway</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Row 2: Experience & Current Challenge -->
+              <div class="hook-form-row">
+                <div class="hook-form-col">
+                  <label for="hookExp" class="hook-field-label">3. Clinical Experience (Post-Registration)</label>
+                  <select id="hookExp" class="hook-field-select" required>
+                    <option value="Under 2 Years">Less than 2 Years</option>
+                    <option value="2 to 5 Years" selected>2 to 5 Years</option>
+                    <option value="6 to 10 Years">6 to 10 Years</option>
+                    <option value="10+ Years">10+ Years</option>
+                  </select>
+                </div>
+
+                <div class="hook-form-col">
+                  <label for="hookStage" class="hook-field-label">4. Your Current Status / Need</label>
+                  <select id="hookStage" class="hook-field-select" required>
+                    <option value="Planning & Exploring" selected>Planning & Exploring</option>
+                    <option value="Checking Qualification Equivalency">Checking Qualification Equivalency</option>
+                    <option value="Documents Ready / Need DataFlow">Documents Ready / Need DataFlow</option>
+                    <option value="Stuck with Discrepancy / Remarks">Stuck with Discrepancy / Delay</option>
+                    <option value="Need License Transfer / Renewal">Need License Transfer / Renewal</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Row 3: Name & WhatsApp Contact -->
+              <div class="hook-form-row">
+                <div class="hook-form-col">
+                  <label for="hookName" class="hook-field-label">5. Full Name</label>
+                  <input type="text" id="hookName" class="hook-field-input" placeholder="Full Name as per official records" required>
+                </div>
+
+                <div class="hook-form-col">
+                  <label for="hookPhone" class="hook-field-label">6. WhatsApp Number</label>
+                  <div class="phone-input-wrap">
+                    <select id="hookCountryCode" class="country-code-select" style="max-width: 120px;">
+                      <option value="+91" selected>🇮🇳 +91</option>
+                      <option value="+977">🇳🇵 +977</option>
+                      <option value="+971">🇦🇪 +971</option>
+                      <option value="+966">🇸🇦 +966</option>
+                      <option value="+974">🇶🇦 +974</option>
+                      <option value="+973">🇧🇭 +973</option>
+                      <option value="+968">🇴🇲 +968</option>
+                      <option value="+63">🇵🇭 +63</option>
+                    </select>
+                    <input type="tel" id="hookPhone" class="hook-field-input" placeholder="WhatsApp / Mobile Number" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit CTA & Live Google Sheets Status -->
+              <div class="hook-form-submit-row">
+                <button type="submit" class="btn-primary hook-submit-btn" id="hookSubmitBtn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.031 2C6.504 2 2.016 6.488 2.016 12.015c0 1.93.551 3.73 1.504 5.253L2 22l4.89-1.488c1.47.85 3.17 1.33 4.981 1.33 5.527 0 10.016-4.488 10.016-10.015C21.887 6.488 17.558 2 12.031 2zm5.79 14.18c-.24.67-1.39 1.25-1.92 1.32-.51.07-1.16.1-3.37-.8-2.65-1.08-4.35-3.8-4.48-3.97-.13-.17-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.53-.32.7-.32.18 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.83.82 1.97.07.14.12.3.02.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.47-.14.13-.29.28-.13.55.17.28.74 1.22 1.6 1.98 1.1.98 2.03 1.29 2.31 1.43.29.14.46.12.63-.08.18-.19.74-.86.94-1.15.2-.3.4-.25.68-.15.27.1 1.74.82 2.04.97.3.15.5.23.57.35.08.12.08.72-.16 1.39z"/>
+                  </svg>
+                  <span>CHECK MY ELIGIBILITY & SEND DOSSIER TO WHATSAPP →</span>
+                </button>
+
+                <div class="hook-sync-status" id="hookSyncStatus">
+                  <span class="live-dot"></span> Automatically recorded to Admissions Google Sheet & connects to official WhatsApp: +971 502720059
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: GCC DESTINATION SELECTOR
+         ========================================================================== -->
+    <section class="destinations-section" id="destinations">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Destination Authorities</span>
+          <h2>Where Do You Want Your Healthcare Career to Take You?</h2>
+          <p>
+            Each GCC nation enforces its own healthcare regulatory framework. Review the relevant authorities below without leaving this page.
+          </p>
+        </div>
+
+        <div class="destination-tabs-container">
+          <nav class="destination-nav-tabs" role="tablist" aria-label="GCC Destination Authorities">
+            <button class="dest-tab-btn active" role="tab" aria-selected="true" data-dest="uae">
+              <span class="tab-flag">🇦🇪</span>
+              <span>UAE</span>
+              <span class="tab-regulator">DHA / DOH / MOHAP</span>
+            </button>
+            <button class="dest-tab-btn" role="tab" aria-selected="false" data-dest="saudi">
+              <span class="tab-flag">🇸🇦</span>
+              <span>Saudi Arabia</span>
+              <span class="tab-regulator">SCFHS</span>
+            </button>
+            <button class="dest-tab-btn" role="tab" aria-selected="false" data-dest="qatar">
+              <span class="tab-flag">🇶🇦</span>
+              <span>Qatar</span>
+              <span class="tab-regulator">DHP / QCHP</span>
+            </button>
+            <button class="dest-tab-btn" role="tab" aria-selected="false" data-dest="bahrain">
+              <span class="tab-flag">🇧🇭</span>
+              <span>Bahrain</span>
+              <span class="tab-regulator">NHRA</span>
+            </button>
+            <button class="dest-tab-btn" role="tab" aria-selected="false" data-dest="oman">
+              <span class="tab-flag">🇴🇲</span>
+              <span>Oman</span>
+              <span class="tab-regulator">OMSB</span>
+            </button>
+          </nav>
+
+          <div class="destination-panel-content" id="destPanelContent">
+            <!-- UAE Default Panel -->
+            <div class="dest-panel-grid">
+              <div class="dest-panel-info">
+                <h3>United Arab Emirates (UAE)</h3>
+                <div class="dest-regulators-badges">
+                  <span class="reg-badge-tag">DHA (Dubai)</span>
+                  <span class="reg-badge-tag">DOH (Abu Dhabi)</span>
+                  <span class="reg-badge-tag">MOHAP (Northern Emirates)</span>
+                </div>
+                <p class="dest-desc">
+                  The UAE operates three distinct healthcare regulatory bodies. Dubai facilities fall under Dubai Health Authority (DHA), Abu Dhabi and Al Ain under Department of Health (DOH), while Sharjah, Ajman, RAK, Fujairah, and UAQ fall under MOHAP. Professionals can also benefit from the Unified Healthcare Professional Qualification Requirements (PQR).
+                </p>
+                <ul class="dest-checklist">
+                  <li>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Primary Source Verification (DataFlow PSV) required for qualifications, experience & licensing</span>
+                  </li>
+                  <li>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Prometric or Pearson VUE Computer-Based Testing (CBT) / Oral assessment where applicable</span>
+                  </li>
+                  <li>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>PQR guidelines determine required clinical years post-registration based on educational tier</span>
+                  </li>
+                  <li>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Eligibility Letter granted upon passing enables direct facility job sponsorship</span>
+                  </li>
+                </ul>
+                <div class="applicable-tag" style="margin-bottom: 1.25rem;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                  Requirements vary by profession, qualification tier & clinical years
+                </div>
+              </div>
+              <div class="dest-panel-card">
+                <h4>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#30C4F2" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                  Explore Your Pathway for DHA / DOH / MOHAP
+                </h4>
+                <p>Wondering if your specific qualification and years of experience qualify you under UAE regulations?</p>
+                <button class="btn-primary" style="font-size: 0.9rem; padding: 0.75rem 1.25rem;" onclick="window.HealthserveApp.syncAndScrollToForm('UAE')">
+                  Check My UAE Eligibility — Free
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dest-cta-banner">
+          <p>NOT SURE WHICH PATHWAY APPLIES TO YOU?</p>
+          <a href="#qualificationSection" class="btn-primary" style="width: auto; display: inline-flex;">
+            CHECK YOUR ELIGIBILITY →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: "NOT EVERYONE FOLLOWS THE SAME PATH" MATRIX
+         ========================================================================== -->
+    <section class="matrix-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag accent">Regulatory Truth</span>
+          <h2>Your Profession. Your Qualification. Your Experience. Your Destination.</h2>
+          <p>
+            A common mistake made by healthcare applicants is copying a friend's or colleague's process. Regulatory criteria depend on seven specific interdependent variables.
+          </p>
+        </div>
+
+        <div class="matrix-flow-container">
+          <!-- Step 1 -->
+          <div class="matrix-step-card">
+            <div class="matrix-step-num">01</div>
+            <div class="matrix-step-title">
+              Profession
+              <small>Scope of Practice</small>
+            </div>
+            <div class="matrix-step-desc">
+              Nurse, Medical Doctor, Specialist, Dentist, Pharmacist, or Allied Health Professional (Physiotherapy, Radiology, Lab Technology).
+            </div>
+          </div>
+
+          <div class="matrix-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="matrix-step-card">
+            <div class="matrix-step-num">02</div>
+            <div class="matrix-step-title">
+              Qualification
+              <small>Accreditation Tier</small>
+            </div>
+            <div class="matrix-step-desc">
+              Diploma (GNM), Bachelor's Degree (B.Sc, MBBS, B.Pharm), Master's, MD/MS, or International Specialty Board Fellowship.
+            </div>
+          </div>
+
+          <div class="matrix-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="matrix-step-card">
+            <div class="matrix-step-num">03</div>
+            <div class="matrix-step-title">
+              Experience
+              <small>Post-Registration Years</small>
+            </div>
+            <div class="matrix-step-desc">
+              Continuous clinical practice completed strictly after official state/national council registration. Internship years are assessed separately.
+            </div>
+          </div>
+
+          <div class="matrix-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="matrix-step-card">
+            <div class="matrix-step-num">04</div>
+            <div class="matrix-step-title">
+              Registration & Good Standing
+              <small>Home Council Validity</small>
+            </div>
+            <div class="matrix-step-desc">
+              Active home country council license and an official Certificate of Good Standing (CGS) issued within the recent 3 to 6 months.
+            </div>
+          </div>
+
+          <div class="matrix-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="matrix-step-card">
+            <div class="matrix-step-num">05</div>
+            <div class="matrix-step-title">
+              Document Verification
+              <small>Primary Source / DataFlow</small>
+            </div>
+            <div class="matrix-step-desc">
+              Direct verification of degrees, clinical experience letters, and registrations with issuing universities, hospitals, and licensing boards.
+            </div>
+          </div>
+
+          <div class="matrix-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="matrix-step-card">
+            <div class="matrix-step-num">06</div>
+            <div class="matrix-step-title">
+              Assessment / Examination
+              <small>CBT / Oral Where Applicable</small>
+            </div>
+            <div class="matrix-step-desc">
+              Computer-Based Testing (Prometric / Pearson VUE) or Oral Assessment. Exemption criteria apply based on specific international qualifications.
+            </div>
+          </div>
+
+          <div class="matrix-connector">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </div>
+
+          <!-- Step 7 -->
+          <div class="matrix-step-card" style="border-color: var(--primary); background: var(--primary-subtle);">
+            <div class="matrix-step-num" style="background: var(--primary); color: #FFFFFF;">07</div>
+            <div class="matrix-step-title">
+              Professional Registration / Licence
+              <small>Eligibility Letter or Licence</small>
+            </div>
+            <div class="matrix-step-desc">
+              Official Eligibility Letter issued, enabling licensed hospitals, clinics, and health centers to issue employment contracts and activate your practice licence.
+            </div>
+          </div>
+        </div>
+
+        <div class="matrix-insight-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <p>
+            <strong>Why this matters:</strong> What worked for an Indian nurse with a B.Sc and 4 years of experience might not apply to a nurse with a GNM diploma or a doctor with a diploma qualification. Having your pathway reviewed prevents costly errors and unapproved submissions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: MAIN JOURNEY SECTION
+         ========================================================================== -->
+    <section class="journey-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Step-by-Step Pathway</span>
+          <h2>From "I Want a GCC Job" to "Ready to Practise"</h2>
+          <p>
+            Understanding the milestone stages prevents weeks of confusion. Here is how qualified healthcare professionals navigate from initial exploration to legal clinical practice.
+          </p>
+        </div>
+
+        <div class="timeline-grid">
+          <!-- Stage 1 -->
+          <div class="timeline-stage-card">
+            <span class="stage-badge-num">STAGE 01</span>
+            <h3>Choose Your Destination</h3>
+            <p>Determine target authority (UAE: DHA/DOH/MOHAP, Saudi: SCFHS, Qatar: DHP, Bahrain: NHRA, Oman: OMSB) based on salary expectations, location preferences, and eligibility rules.</p>
+            <span class="applicable-tag">All Candidates</span>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="timeline-stage-card">
+            <span class="stage-badge-num">STAGE 02</span>
+            <h3>Check Your Eligibility</h3>
+            <p>Verify whether your exact academic credentials, state council registrations, and clinical experience meet the destination Unified Healthcare Qualification requirements.</p>
+            <span class="applicable-tag">Mandatory Milestone</span>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="timeline-stage-card">
+            <span class="stage-badge-num">STAGE 03</span>
+            <h3>Prepare Your Documents</h3>
+            <p>Assemble transcripts, degree certificates, experience letters on official hospital letterheads with clear clinical scope, and current Good Standing Certificates.</p>
+            <span class="applicable-tag">Dossier Curation</span>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="timeline-stage-card">
+            <span class="stage-badge-num">STAGE 04</span>
+            <h3>Verification / DataFlow</h3>
+            <p>Initiate Primary Source Verification (PSV) through authorized agency (DataFlow Group) to independently authenticate all degrees, licenses, and employment credentials.</p>
+            <span class="applicable-tag">Where Applicable</span>
+          </div>
+
+          <!-- Stage 5 -->
+          <div class="timeline-stage-card">
+            <span class="stage-badge-num">STAGE 05</span>
+            <h3>Examination / Assessment</h3>
+            <p>Schedule and take the Computer-Based Test (Prometric / Pearson VUE) or Oral specialty assessment as required by your designated professional category.</p>
+            <span class="applicable-tag">Where Applicable</span>
+          </div>
+
+          <!-- Stage 6 -->
+          <div class="timeline-stage-card">
+            <span class="stage-badge-num">STAGE 06</span>
+            <h3>Professional Registration / Licence</h3>
+            <p>Receive your official Eligibility Letter or Registration confirmation, validating you as legally cleared to practice upon facility contract sponsorship.</p>
+            <span class="applicable-tag">Regulatory Confirmation</span>
+          </div>
+
+          <!-- Stage 7 -->
+          <div class="timeline-stage-card">
+            <span class="stage-badge-num">STAGE 07</span>
+            <h3>Career Readiness</h3>
+            <p>Apply for clinical vacancies in hospitals and clinics with your official Eligibility Letter already in hand—making you an immediately sponsor-ready candidate for employers.</p>
+            <span class="applicable-tag">Employment Advantage</span>
+          </div>
+        </div>
+
+        <div class="journey-footer-note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <strong>Important Note:</strong> Your exact pathway depends on your profession, qualifications, experience and the requirements of the destination authority. Not every professional follows every identical step.
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: PERSONAL SITUATION SELECTOR
+         ========================================================================== -->
+    <section class="situation-section" id="situations">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag accent">Self-Identification</span>
+          <h2>Where Are You in Your Journey?</h2>
+          <p>
+            Select your current scenario below to see personalized recommendations tailored to your exact status.
+          </p>
+        </div>
+
+        <div class="situation-options-grid" role="group" aria-label="Current Journey Situation">
+          <button class="situation-btn active" data-situation="starting">
+            <span class="situation-btn-title">1. I'M JUST STARTING</span>
+            <span class="situation-btn-desc">"I want to work in the GCC but don't know where to begin."</span>
+          </button>
+          <button class="situation-btn" data-situation="checking">
+            <span class="situation-btn-title">2. CHECKING ELIGIBILITY</span>
+            <span class="situation-btn-desc">"I want to know whether my profile may meet requirements."</span>
+          </button>
+          <button class="situation-btn" data-situation="started">
+            <span class="situation-btn-title">3. I'VE STARTED LICENSING</span>
+            <span class="situation-btn-desc">"I have already begun the application process."</span>
+          </button>
+          <button class="situation-btn" data-situation="stuck">
+            <span class="situation-btn-title">4. I'M STUCK</span>
+            <span class="situation-btn-desc">"Something is delaying or blocking my application."</span>
+          </button>
+          <button class="situation-btn" data-situation="licensed">
+            <span class="situation-btn-title">5. ALREADY HAVE A LICENCE</span>
+            <span class="situation-btn-desc">"I need to renew, transfer, upgrade or update registration."</span>
+          </button>
+        </div>
+
+        <div class="situation-result-box" id="situationResultBox">
+          <div class="situation-result-info">
+            <span class="section-tag" style="margin-bottom: 0.5rem;">Personalized Assessment</span>
+            <h3>Stage: Just Starting Out</h3>
+            <p>
+              You want to work in the GCC but haven't chosen a regulator or checked eligibility requirements. The ideal first step is comparing destinations (e.g. Dubai vs Saudi Arabia) based on your exact qualification tier and experience.
+            </p>
+            <ul class="situation-recommended-steps">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                1. Identify whether your diploma/degree is recognized by destination PQR
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                2. Calculate post-registration clinical experience requirements
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                3. Review timeline and primary document preparation
+              </li>
+            </ul>
+          </div>
+          <div class="situation-result-cta">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              Connect directly with our Dubai licensing specialists for this situation:
+            </p>
+            <button type="button" class="btn-primary js-situation-whatsapp-btn" onclick="window.HealthserveApp.redirectSituationToWhatsApp('I\'m Just Starting')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 2C6.504 2 2.016 6.488 2.016 12.015c0 1.93.551 3.73 1.504 5.253L2 22l4.89-1.488c1.47.85 3.17 1.33 4.981 1.33 5.527 0 10.016-4.488 10.016-10.015C21.887 6.488 17.558 2 12.031 2zm5.79 14.18c-.24.67-1.39 1.25-1.92 1.32-.51.07-1.16.1-3.37-.8-2.65-1.08-4.35-3.8-4.48-3.97-.13-.17-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.53-.32.7-.32.18 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.83.82 1.97.07.14.12.3.02.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.47-.14.13-.29.28-.13.55.17.28.74 1.22 1.6 1.98 1.1.98 2.03 1.29 2.31 1.43.29.14.46.12.63-.08.18-.19.74-.86.94-1.15.2-.3.4-.25.68-.15.27.1 1.74.82 2.04.97.3.15.5.23.57.35.08.12.08.72-.16 1.39z"/>
+              </svg>
+              <span>Get WhatsApp Guidance on This Step →</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 7: MAJOR "STUCK CASES" & 8 HEALTHSERVE SERVICES
+         ========================================================================== -->
+    <section class="stuck-cases-section" id="services">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Licensing Problem Solving</span>
+          <h2>Already Started Your Licensing Journey?</h2>
+          <p style="font-size: 1.15rem; font-weight: 600; color: var(--primary-deep); margin-bottom: 0.75rem;">
+            You don't always have to start again.
+          </p>
+          <p>
+            You may already have a licence, an application in progress, documents under verification, an examination requirement, an expired registration or a professional title that needs updating. Healthserve supports complex, multi-stage situations.
+          </p>
+        </div>
+
+        <div class="services-grid-8">
+          <!-- Service 1 -->
+          <div class="service-card" data-service="new-license">
+            <div class="service-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+            </div>
+            <h3>1. New Professional Licence</h3>
+            <p>Apply for your first professional licence with complete documentation audit and primary source verification guidance.</p>
+            <span class="service-action-link">THIS IS MY SITUATION →</span>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="service-card" data-service="license-renewal">
+            <div class="service-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+            </div>
+            <h3>2. Licence Renewal</h3>
+            <p>Renew your professional licence before expiry with CME credit audits and documentation support to prevent practice interruption.</p>
+            <span class="service-action-link">THIS IS MY SITUATION →</span>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="service-card" data-service="license-transfer">
+            <div class="service-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+            </div>
+            <h3>3. Licence Transfer</h3>
+            <p>Transfer your existing healthcare licence between clinical facilities or across emirates (DHA/DOH/MOHAP) with expert guidance.</p>
+            <span class="service-action-link">THIS IS MY SITUATION →</span>
+          </div>
+
+          <!-- Service 4 -->
+          <div class="service-card" data-service="upgrade-title">
+            <div class="service-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <h3>4. Upgrade Professional Title</h3>
+            <p>Update your professional designation (e.g. from General Practitioner to Specialist, or Staff Nurse to Specialist) where applicable.</p>
+            <span class="service-action-link">THIS IS MY SITUATION →</span>
+          </div>
+
+          <!-- Service 5 -->
+          <div class="service-card" data-service="additional-qualification">
+            <div class="service-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </div>
+            <h3>5. Additional Qualification Registration</h3>
+            <p>Formally register newly obtained degrees, clinical diplomas or fellowship certifications on your active regulatory register.</p>
+            <span class="service-action-link">THIS IS MY SITUATION →</span>
+          </div>
+
+          <!-- Service 6 -->
+          <div class="service-card" data-service="schedule-exam">
+            <div class="service-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <h3>6. Schedule CBT / Oral Examination</h3>
+            <p>Book your Prometric, Pearson VUE, or regulatory board assessment with eligibility generation and syllabus orientation.</p>
+            <span class="service-action-link">THIS IS MY SITUATION →</span>
+          </div>
+
+          <!-- Service 7 -->
+          <div class="service-card" data-service="good-standing">
+            <div class="service-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3>7. Good Standing Certificate</h3>
+            <p>Assistance in obtaining, expediting, and transmitting Good Standing Certificates from home councils or past GCC regulators.</p>
+            <span class="service-action-link">THIS IS MY SITUATION →</span>
+          </div>
+
+          <!-- Service 8 -->
+          <div class="service-card" data-service="re-registration">
+            <div class="service-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 2v6h6M21.5 22v-6h-6M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.2"></path></svg>
+            </div>
+            <h3>8. Re-registration</h3>
+            <p>Structured support for expired licences, clinical gaps, and re-registration across UAE and Gulf health authorities.</p>
+            <span class="service-action-link">THIS IS MY SITUATION →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 8: SUPPORTING FREE TOOLS (CONTROLLED ON-PAGE MODALS)
+         ========================================================================== -->
+    <section class="tools-section" id="tools">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Interactive Evaluation</span>
+          <h2>Want to Check Yourself Before You Speak to Someone?</h2>
+          <p>
+            Use Healthserve's interactive assessment tools to evaluate your readiness, compare destinations, and estimate timelines right here on the page.
+          </p>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-card" data-tool="readiness">
+            <div class="tool-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+            </div>
+            <div class="tool-content">
+              <h3>Career Readiness Assessment</h3>
+              <p>See how prepared your credentials and clinical experience are for your planned GCC relocation.</p>
+              <span class="tool-link">Open Assessment Tool →</span>
+            </div>
+          </div>
+
+          <div class="tool-card" data-tool="eligibility">
+            <div class="tool-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <div class="tool-content">
+              <h3>Country Eligibility Checker</h3>
+              <p>Explore potential qualification recognition and required experience for your target GCC destination.</p>
+              <span class="tool-link">Check Eligibility Benchmarks →</span>
+            </div>
+          </div>
+
+          <div class="tool-card" data-tool="comparison">
+            <div class="tool-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <div class="tool-content">
+              <h3>Country Comparison Tool</h3>
+              <p>Compare regulatory authorities, verification workflows, and exam formats side by side.</p>
+              <span class="tool-link">Compare GCC Destinations →</span>
+            </div>
+          </div>
+
+          <div class="tool-card" data-tool="roadmap">
+            <div class="tool-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            </div>
+            <div class="tool-content">
+              <h3>Career Roadmap Generator</h3>
+              <p>Understand the 6 major milestone phases from initial document collation to legal clinical practice.</p>
+              <span class="tool-link">Generate Roadmap View →</span>
+            </div>
+          </div>
+
+          <div class="tool-card" data-tool="dataflow">
+            <div class="tool-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            </div>
+            <div class="tool-content">
+              <h3>DataFlow Readiness Checker</h3>
+              <p>Audit your degree certificates, mark sheets, and experience letters before submitting Primary Source Verification.</p>
+              <span class="tool-link">Review Verification Checklist →</span>
+            </div>
+          </div>
+
+          <div class="tool-card" data-tool="timeline">
+            <div class="tool-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div class="tool-content">
+              <h3>License Timeline Estimator</h3>
+              <p>Get an indicative, realistic view of processing timelines based on your current application status.</p>
+              <span class="tool-link">Estimate My Timeline →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 9: HEALTHSERVE VALUE SECTION
+         ========================================================================== -->
+    <section class="value-section">
+      <div class="container value-grid-wrapper">
+        <div class="value-visual-wrap">
+          <img src="consultation-guidance.jpg" alt="Healthserve licensing specialist reviewing credential documents in Dubai office" width="560" height="350" loading="lazy">
+        </div>
+
+        <div>
+          <span class="section-tag">Dubai Healthcare Consultancy</span>
+          <h2 style="font-size: clamp(1.85rem, 3.2vw, 2.5rem); margin-bottom: 1.25rem;">
+            You Don't Have to Figure Out the GCC Licensing Path Alone.
+          </h2>
+          <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 2rem;">
+            Healthcare licensing authorities in the Gulf do not grant approvals based on guesswork. Healthserve provides structured guidance anchored in official Unified Healthcare PQR standards.
+          </p>
+
+          <div class="value-pillars-list">
+            <div class="pillar-item">
+              <div class="pillar-icon-box">01</div>
+              <div class="pillar-text">
+                <h3>UNDERSTAND</h3>
+                <p>Understand the precise licensing pathway and regulatory requirements relevant to your exact profession, degree tier, and destination.</p>
+              </div>
+            </div>
+
+            <div class="pillar-item">
+              <div class="pillar-icon-box">02</div>
+              <div class="pillar-text">
+                <h3>PREPARE</h3>
+                <p>Understand your documentation, council Good Standing validations, and DataFlow primary source verification before filing.</p>
+              </div>
+            </div>
+
+            <div class="pillar-item">
+              <div class="pillar-icon-box">03</div>
+              <div class="pillar-text">
+                <h3>NAVIGATE</h3>
+                <p>Get direct support when an application encounters remarks, verification delays, or when an existing license requires transfer or renewal.</p>
+              </div>
+            </div>
+
+            <div class="pillar-item">
+              <div class="pillar-icon-box">04</div>
+              <div class="pillar-text">
+                <h3>PROGRESS</h3>
+                <p>Move from uncertainty toward your next appropriate milestone with clear, transparent advice from Dubai-based specialists.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 10: TRUST & FACTUAL CREDIBILITY SECTION
+         ========================================================================== -->
+    <section class="trust-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag accent">Official Principles</span>
+          <h2>Grounded in Accuracy, Transparency & Professional Empathy</h2>
+          <p>
+            Healthserve Health Consultancy is an established advisory firm based in Dubai, UAE, dedicated to simplifying healthcare licensing and professional readiness.
+          </p>
+        </div>
+
+        <div class="trust-pillars-row">
+          <div class="trust-pillar-card">
+            <h3>Transparency</h3>
+            <p>Clear, upfront explanations of regulatory steps, processing windows, and document prerequisites without hidden surprises.</p>
+          </div>
+          <div class="trust-pillar-card">
+            <h3>Accuracy</h3>
+            <p>Guidance strictly grounded in the official Healthcare Professional Qualification Requirements (PQR) of each destination authority.</p>
+          </div>
+          <div class="trust-pillar-card">
+            <h3>Empathy</h3>
+            <p>Understanding the dedication and sacrifice healthcare professionals invest when pursuing an international clinical career.</p>
+          </div>
+          <div class="trust-pillar-card">
+            <h3>Excellence</h3>
+            <p>Rigorous document audits that minimize the risk of verification discrepancies or regulatory portal rejections.</p>
+          </div>
+        </div>
+
+        <div class="trust-center-banner">
+          <div class="trust-banner-img">
+            <img src="gcc-healthcare-center.jpg" alt="Dubai Healthcare City medical campus facility" width="600" height="360" loading="lazy">
+          </div>
+          <div class="trust-banner-text">
+            <span class="section-tag" style="margin-bottom: 0.5rem;">Dubai Headquarters</span>
+            <h3>Comprehensive GCC Authority Coverage</h3>
+            <p>
+              Our team assists doctors, nurses, dentists, and allied health professionals with guidance across all primary health bodies in the GCC region:
+            </p>
+            <ul class="trust-points-list">
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Dubai Health Authority (DHA) — Sheryan System</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Department of Health Abu Dhabi (DOH / HAAD)</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>UAE Ministry of Health & Prevention (MOHAP)</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Saudi Commission for Health Specialties (SCFHS) — Mumaris+</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Qatar (DHP), Bahrain (NHRA), and Oman (OMSB)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 11: FINAL CONVERSION SECTION & SECOND-STAGE FORM
+         ========================================================================== -->
+    <section class="final-conversion-section" id="qualificationSection">
+      <div class="container conversion-layout">
+        <div class="conversion-info">
+          <span class="section-tag">Personalized Evaluation</span>
+          <h2>Tell Us Where You Are. We'll Help You Understand What's Next.</h2>
+          <p class="lead">
+            Take two minutes to select your professional background and target country. Receive free, structured clarity on your next appropriate step.
+          </p>
+
+          <div class="steps-progression-list">
+            <div class="prog-step-item">
+              <div class="prog-step-num">01</div>
+              <div class="prog-step-text">
+                <h4>Tell us your profession and destination</h4>
+                <p>Indicate your clinical discipline and which GCC country you aim to work in.</p>
+              </div>
+            </div>
+            <div class="prog-step-item">
+              <div class="prog-step-num">02</div>
+              <div class="prog-step-text">
+                <h4>Tell us where you are in your licensing journey</h4>
+                <p>Whether you are just planning, evaluating qualifications, stuck with DataFlow, or already licensed.</p>
+              </div>
+            </div>
+            <div class="prog-step-item">
+              <div class="prog-step-num">03</div>
+              <div class="prog-step-text">
+                <h4>Get guidance on your next appropriate step</h4>
+                <p>Receive a clear roadmap summary and direct access to a Dubai licensing consultant on WhatsApp.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="reassurance-callout">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 16v-4"></path>
+              <path d="M12 8h.01"></path>
+            </svg>
+            <span>
+              Your exact pathway depends on your profession, qualifications, experience and destination. No universal promises.
+            </span>
+          </div>
+        </div>
+
+        <!-- The Second-Stage Qualification Card -->
+        <div class="qualification-card">
+          <div class="card-top-header">
+            <h3>Healthcare Pathway Assessment</h3>
+            <p>Free preliminary guidance · Handled by Dubai licensing specialists</p>
+          </div>
+
+          <form id="qualificationForm">
+            <!-- Profession -->
+            <div class="qual-form-group">
+              <label class="qual-label">1. What is your healthcare profession?</label>
+              <div class="select-pill-grid">
+                <button type="button" class="pill-option selected" data-field="profession" data-value="Nurse">Nurse (B.Sc / GNM)</button>
+                <button type="button" class="pill-option" data-field="profession" data-value="Doctor">Doctor (GP / Specialist)</button>
+                <button type="button" class="pill-option" data-field="profession" data-value="Allied Health">Allied Healthcare</button>
+                <button type="button" class="pill-option" data-field="profession" data-value="Other Professional">Dentist / Pharmacist / Other</button>
+              </div>
+            </div>
+
+            <!-- Destination -->
+            <div class="qual-form-group">
+              <label class="qual-label">2. Target GCC Destination?</label>
+              <div class="select-pill-grid">
+                <button type="button" class="pill-option selected" data-field="destination" data-value="UAE">UAE (Dubai / Abu Dhabi)</button>
+                <button type="button" class="pill-option" data-field="destination" data-value="Saudi Arabia">Saudi Arabia (SCFHS)</button>
+                <button type="button" class="pill-option" data-field="destination" data-value="Qatar">Qatar (DHP)</button>
+                <button type="button" class="pill-option" data-field="destination" data-value="Bahrain">Bahrain (NHRA)</button>
+                <button type="button" class="pill-option" data-field="destination" data-value="Oman">Oman (OMSB)</button>
+                <button type="button" class="pill-option" data-field="destination" data-value="Not Sure">Not Sure / Recommend</button>
+              </div>
+            </div>
+
+            <!-- Journey Stage -->
+            <div class="qual-form-group">
+              <label class="qual-label">3. What is your current status?</label>
+              <div class="select-pill-grid">
+                <button type="button" class="pill-option selected" data-field="stage" data-value="Planning">Planning & Exploring</button>
+                <button type="button" class="pill-option" data-field="stage" data-value="Checking eligibility">Checking Eligibility</button>
+                <button type="button" class="pill-option" data-field="stage" data-value="Documents / Verification">Documents / DataFlow</button>
+                <button type="button" class="pill-option" data-field="stage" data-value="Examination">Exam Preparation / Booking</button>
+                <button type="button" class="pill-option" data-field="stage" data-value="Stuck with an existing case">Stuck / Delayed Application</button>
+                <button type="button" class="pill-option" data-field="stage" data-value="Already licensed">Already Licensed (Renewal / Transfer)</button>
+              </div>
+            </div>
+
+            <!-- Experience -->
+            <div class="qual-form-group">
+              <label class="qual-label">4. Clinical Experience (Post-Registration)</label>
+              <div class="select-pill-grid">
+                <button type="button" class="pill-option" data-field="experience" data-value="1-2 years">1 - 2 Years</button>
+                <button type="button" class="pill-option selected" data-field="experience" data-value="3-5 years">3 - 5 Years</button>
+                <button type="button" class="pill-option" data-field="experience" data-value="6-10 years">6 - 10 Years</button>
+                <button type="button" class="pill-option" data-field="experience" data-value="10+ years">10+ Years</button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary" style="margin-top: 1rem;" id="submitQualBtn">
+              SHOW MY NEXT STEP →
+            </button>
+          </form>
+
+          <!-- Dynamic Guidance Result Card -->
+          <div class="guidance-result-box" id="guidanceResultBox">
+            <span class="result-badge">Generated Pathway Dossier</span>
+            <h4 id="resultHeading">Your Pathway Assessment</h4>
+            <p id="resultDetails">
+              Based on your profile, your pathway involves primary source verification (DataFlow PSV), compliance check against destination Healthcare PQR, and CBT exam scheduling where applicable.
+            </p>
+
+            <div class="result-action-row">
+              <a href="https://wa.me/971502720059" class="btn-whatsapp js-whatsapp-link" id="resultWhatsAppBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.031 2C6.504 2 2.016 6.488 2.016 12.015c0 1.93.551 3.73 1.504 5.253L2 22l4.89-1.488c1.47.85 3.17 1.33 4.981 1.33 5.527 0 10.016-4.488 10.016-10.015C21.887 6.488 17.558 2 12.031 2zm5.79 14.18c-.24.67-1.39 1.25-1.92 1.32-.51.07-1.16.1-3.37-.8-2.65-1.08-4.35-3.8-4.48-3.97-.13-.17-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.53-.32.7-.32.18 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.83.82 1.97.07.14.12.3.02.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.47-.14.13-.29.28-.13.55.17.28.74 1.22 1.6 1.98 1.1.98 2.03 1.29 2.31 1.43.29.14.46.12.63-.08.18-.19.74-.86.94-1.15.2-.3.4-.25.68-.15.27.1 1.74.82 2.04.97.3.15.5.23.57.35.08.12.08.72-.16 1.39z"/>
+                </svg>
+                <span>Connect on WhatsApp with This Profile</span>
+              </a>
+              <p style="font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 0.35rem;">
+                Our Dubai team receives your answers directly so you won't have to repeat your details.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       STICKY CONVERSION BAR (ACTIVATES AFTER HERO SCROLL)
+       ========================================================================== -->
+  <div class="sticky-conversion-bar" id="stickyConversionBar">
+    <div class="sticky-bar-inner">
+      <div class="sticky-text">
+        Explore Your GCC Healthcare Licensing Pathway
+        <span>Free preliminary eligibility assessment · Dubai-based consultancy</span>
+      </div>
+      <div class="sticky-actions">
+        <a href="#qualificationSection" class="btn-primary">
+          Check My Eligibility — Free
+        </a>
+        <a href="https://wa.me/971502720059" class="btn-whatsapp js-whatsapp-link">
+          <span>WhatsApp Specialist</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Action -->
+  <a href="https://wa.me/971502720059" class="floating-whatsapp-btn js-whatsapp-link" aria-label="Direct WhatsApp consultation with Dubai licensing team">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.031 2C6.504 2 2.016 6.488 2.016 12.015c0 1.93.551 3.73 1.504 5.253L2 22l4.89-1.488c1.47.85 3.17 1.33 4.981 1.33 5.527 0 10.016-4.488 10.016-10.015C21.887 6.488 17.558 2 12.031 2zm5.79 14.18c-.24.67-1.39 1.25-1.92 1.32-.51.07-1.16.1-3.37-.8-2.65-1.08-4.35-3.8-4.48-3.97-.13-.17-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.53-.32.7-.32.18 0 .35 0 .5.01.16.01.37-.06.58.44.22.52.75 1.83.82 1.97.07.14.12.3.02.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.47-.14.13-.29.28-.13.55.17.28.74 1.22 1.6 1.98 1.1.98 2.03 1.29 2.31 1.43.29.14.46.12.63-.08.18-.19.74-.86.94-1.15.2-.3.4-.25.68-.15.27.1 1.74.82 2.04.97.3.15.5.23.57.35.08.12.08.72-.16 1.39z"/>
+    </svg>
+    <span>WhatsApp Team</span>
+  </a>
+
+  <!-- ==========================================================================
+       MODALS: STUCK SERVICES DIALOG & INTERACTIVE TOOLS DIALOG
+       ========================================================================== -->
+  <!-- 1. Stuck Service Dialog -->
+  <dialog id="serviceCaseDialog" class="custom-dialog">
+    <div class="dialog-card">
+      <div class="dialog-header">
+        <h3 id="caseDialogTitle">Service Details</h3>
+        <button type="button" class="dialog-close-btn" id="closeCaseDialog" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body" id="caseDialogBody">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="dialog-footer">
+        <button type="button" class="btn-secondary" onclick="document.getElementById('serviceCaseDialog').close()">Close</button>
+        <button type="button" class="btn-primary" id="caseDialogCta" style="width: auto;">Talk to Healthserve About This →</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 2. Tool Dialog -->
+  <dialog id="toolDialog" class="custom-dialog">
+    <div class="dialog-card">
+      <div class="dialog-header">
+        <h3 id="toolDialogTitle">Evaluation Tool</h3>
+        <button type="button" class="dialog-close-btn" id="closeToolDialog" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body" id="toolDialogBody">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="dialog-footer">
+        <button type="button" class="btn-secondary" onclick="document.getElementById('toolDialog').close()">Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       MINIMAL COMPLIANT FOOTER (NO OUTBOUND LEAKS)
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div style="display: flex; align-items: center; gap: 0.85rem;">
+          <img src="healthserve-logo.png" alt="Healthserve Health Consultancy" style="height: 32px; filter: brightness(0) invert(1);">
+          <span style="font-size: 0.85rem; color: #E2E8F0; font-weight: 600;">Healthserve Health Consultancy</span>
+        </div>
+        <div style="font-size: 0.82rem; color: #94A3B8;">
+          Registered in Dubai, United Arab Emirates · Contact: +971 502720059
+        </div>
+      </div>
+
+      <div class="footer-disclaimer-box">
+        <strong>Important Regulatory & Accuracy Notice:</strong> Healthserve Health Consultancy is an independent professional healthcare consultancy providing document curation, advisory, and licensing assistance. Healthserve is not a government regulatory authority. Purchasing a licensing advisory or support package does not guarantee the grant of a professional licence by any regulatory authority (DHA, MOHAP, DOH, SCFHS, DHP, NHRA, OMSB). All licensing determinations and approvals are strictly subject to the sovereign discretion and regulatory evaluation of the respective health authority.
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 Healthserve Health Consultancy. All rights reserved.
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <span>Confidential Healthcare Enquiry Handling</span>
+          <span>UAE Healthcare Regulations Compliant</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
