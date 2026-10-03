@@ -2683,3 +2683,344 @@ dialog.custom-dialog::backdrop {
     display: none;
   }
 }
+
+/* ==========================================================================
+   SLEEK COMPACT HORIZONTAL PATHWAY STEPPER
+   ========================================================================== */
+.pathway-stepper-wrap {
+  margin-top: 3.5rem;
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 2rem;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.pathway-stepper-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 2.25rem auto;
+}
+
+.pathway-mini-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary-deep);
+  background: var(--primary-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 0.5rem;
+}
+
+.pathway-stepper-header h3 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.pathway-stepper-header p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.stepper-track-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.stepper-node {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 0.85rem;
+  text-align: center;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.stepper-node:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.stepper-node.highlight {
+  background: #EFF6FF;
+  border-color: #38BDF8;
+}
+
+.node-num {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--primary-deep);
+  background: var(--primary-light);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.35rem;
+}
+
+.stepper-node.highlight .node-num {
+  background: #0284C7;
+  color: #FFFFFF;
+}
+
+.node-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  line-height: 1.25;
+}
+
+.node-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.stepper-arrow {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.stepper-note {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #F8FAFC;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.82rem;
+  color: var(--text-body);
+  border-left: 3px solid var(--primary);
+}
+
+.stepper-note svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   SEO FAQ SECTION
+   ========================================================================== */
+.faq-section {
+  padding: 5rem 0;
+  background: #FFFFFF;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.faq-accordion {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.faq-item {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.faq-item:hover {
+  border-color: #CBD5E1;
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-item.active {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.15rem 1.35rem;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  gap: 1rem;
+  transition: color var(--transition-fast);
+}
+
+.faq-question:hover {
+  color: var(--primary-deep);
+}
+
+.faq-chevron {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.faq-item.active .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--primary-deep);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+  padding: 0 1.35rem;
+  background: #F8FAFC;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  padding: 0 1.35rem 1.25rem 1.35rem;
+}
+
+.faq-answer p {
+  font-size: 0.92rem;
+  color: var(--text-body);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ==========================================================================
+   FINAL PSYCHOLOGICAL CONVERSION CTA SECTION
+   ========================================================================== */
+.final-cta-section {
+  padding: 5rem 0 6rem 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.final-cta-card {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-top: 4px solid var(--primary);
+  border-radius: var(--radius-xl);
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.final-cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary-deep);
+  background: var(--primary-light);
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+}
+
+.final-cta-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.final-cta-lead {
+  font-size: 1.05rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto 2.25rem auto;
+}
+
+.final-cta-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.final-cta-buttons .btn-primary {
+  padding: 0.95rem 1.85rem;
+  font-size: 0.96rem;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+}
+
+.final-cta-buttons .btn-whatsapp {
+  padding: 0.95rem 1.85rem;
+  font-size: 0.96rem;
+}
+
+.final-cta-trust-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.final-trust-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.final-trust-chip svg {
+  color: var(--secondary-green);
+}
+
+@media (max-width: 1024px) {
+  .stepper-track-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .stepper-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .stepper-track-grid {
+    grid-template-columns: 1fr;
+  }
+  .final-cta-card {
+    padding: 2.25rem 1.25rem;
+  }
+  .final-cta-title {
+    font-size: 1.45rem;
+  }
+  .final-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .final-cta-buttons .btn-primary,
+  .final-cta-buttons .btn-whatsapp {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

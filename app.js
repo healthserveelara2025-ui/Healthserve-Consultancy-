@@ -162,6 +162,7 @@
     initStuckCaseModals();
     initInteractiveTools();
     initQualificationForm();
+    initFaqAccordion();
     initStickyBar();
     initWhatsAppLinks();
 
@@ -1315,6 +1316,45 @@ Could you please review my eligibility and guide me on the next step?`;
         stickyBar.classList.remove('visible');
       }
     }, { passive: true });
+  }
+
+  // ==========================================
+  // 8B. SEO FAQ ACCORDION CONTROLLER
+  // ==========================================
+  function initFaqAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (!faqItems.length) return;
+
+    faqItems.forEach((item, index) => {
+      const btn = item.querySelector('.faq-question');
+      if (!btn) return;
+
+      btn.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Close other items for a clean mobile reading experience
+        faqItems.forEach(other => {
+          if (other !== item) {
+            other.classList.remove('active');
+            const otherBtn = other.querySelector('.faq-question');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        if (isActive) {
+          item.classList.remove('active');
+          btn.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+          const questionText = btn.querySelector('span') ? btn.querySelector('span').textContent.trim() : `FAQ #${index + 1}`;
+          trackEvent('faq_opened', {
+            faq_index: index + 1,
+            question: questionText
+          });
+        }
+      });
+    });
   }
 
   // ==========================================
