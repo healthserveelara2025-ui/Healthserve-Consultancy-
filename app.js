@@ -963,9 +963,11 @@ Could you please review my eligibility and guide me on the next step?`;
     });
 
     document.querySelectorAll('.tool-card').forEach(card => {
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        const href = card.getAttribute('href') || 'https://healthserve.ae/career-hub/register';
         const toolType = card.dataset.tool;
         trackEvent('career_hub_tool_clicked', { tool_type: toolType });
+        window.location.href = href;
       });
     });
   }
