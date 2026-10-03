@@ -965,9 +965,7 @@ Could you please review my eligibility and guide me on the next step?`;
     document.querySelectorAll('.tool-card').forEach(card => {
       card.addEventListener('click', () => {
         const toolType = card.dataset.tool;
-        trackEvent('tool_opened', { tool_type: toolType });
-        renderTool(toolType, toolTitle, toolBody, dialog);
-        dialog.showModal();
+        trackEvent('career_hub_tool_clicked', { tool_type: toolType });
       });
     });
   }
