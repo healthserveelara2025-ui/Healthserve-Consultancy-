@@ -1456,46 +1456,46 @@
                   <span class="star-icon star-fraction">★</span>
                 </div>
                 <div class="rating-meta-label">
-                  <strong>120 Reviews</strong> · 4.7 / 5
+                  <strong id="ratingTotalCount">120 Reviews</strong> · <span id="ratingScoreText">4.7 / 5</span>
                 </div>
               </div>
             </div>
 
-            <div class="rating-breakdown-panel">
-              <div class="breakdown-row" title="94 five-star reviews">
+            <div class="rating-breakdown-panel" id="ratingBreakdownPanel">
+              <div class="breakdown-row" id="breakdownRow5" title="94 five-star reviews">
                 <span class="breakdown-label">5★</span>
                 <div class="breakdown-bar-track">
-                  <div class="breakdown-bar-fill" style="width: 78.3%;"></div>
+                  <div class="breakdown-bar-fill" id="breakdownBar5" style="width: 78.3%;"></div>
                 </div>
-                <span class="breakdown-num">94</span>
+                <span class="breakdown-num" id="breakdownNum5">94</span>
               </div>
-              <div class="breakdown-row" title="18 four-star reviews">
+              <div class="breakdown-row" id="breakdownRow4" title="18 four-star reviews">
                 <span class="breakdown-label">4★</span>
                 <div class="breakdown-bar-track">
-                  <div class="breakdown-bar-fill" style="width: 15.0%;"></div>
+                  <div class="breakdown-bar-fill" id="breakdownBar4" style="width: 15.0%;"></div>
                 </div>
-                <span class="breakdown-num">18</span>
+                <span class="breakdown-num" id="breakdownNum4">18</span>
               </div>
-              <div class="breakdown-row" title="5 three-star reviews">
+              <div class="breakdown-row" id="breakdownRow3" title="5 three-star reviews">
                 <span class="breakdown-label">3★</span>
                 <div class="breakdown-bar-track">
-                  <div class="breakdown-bar-fill" style="width: 4.2%;"></div>
+                  <div class="breakdown-bar-fill" id="breakdownBar3" style="width: 4.2%;"></div>
                 </div>
-                <span class="breakdown-num">5</span>
+                <span class="breakdown-num" id="breakdownNum3">5</span>
               </div>
-              <div class="breakdown-row" title="2 two-star reviews">
+              <div class="breakdown-row" id="breakdownRow2" title="2 two-star reviews">
                 <span class="breakdown-label">2★</span>
                 <div class="breakdown-bar-track">
-                  <div class="breakdown-bar-fill" style="width: 1.7%;"></div>
+                  <div class="breakdown-bar-fill" id="breakdownBar2" style="width: 1.7%;"></div>
                 </div>
-                <span class="breakdown-num">2</span>
+                <span class="breakdown-num" id="breakdownNum2">2</span>
               </div>
-              <div class="breakdown-row" title="1 one-star review">
+              <div class="breakdown-row" id="breakdownRow1" title="1 one-star review">
                 <span class="breakdown-label">1★</span>
                 <div class="breakdown-bar-track">
-                  <div class="breakdown-bar-fill" style="width: 0.8%;"></div>
+                  <div class="breakdown-bar-fill" id="breakdownBar1" style="width: 0.8%;"></div>
                 </div>
-                <span class="breakdown-num">1</span>
+                <span class="breakdown-num" id="breakdownNum1">1</span>
               </div>
             </div>
           </div>
@@ -1551,9 +1551,9 @@
             <p class="write-review-text">We'd love to hear about your experience.</p>
           </div>
           <div class="write-review-right">
-            <a href="#" class="btn-write-review" id="writeReviewBtn" target="_blank" rel="noopener noreferrer">
+            <button type="button" class="btn-write-review" id="writeReviewBtn" aria-haspopup="dialog" aria-controls="writeReviewModal">
               ★ Write a Review
-            </a>
+            </button>
             <p class="write-review-micro">Your feedback helps future healthcare professionals make more informed decisions.</p>
           </div>
         </div>
@@ -1664,6 +1664,140 @@
       </div>
       <div class="dialog-footer">
         <button type="button" class="btn-secondary" onclick="document.getElementById('toolDialog').close()">Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 3. Write a Review Modal -->
+  <dialog id="writeReviewModal" class="custom-dialog write-review-dialog" aria-labelledby="writeReviewModalTitle">
+    <div class="dialog-card">
+      <div class="dialog-header">
+        <div>
+          <span class="dialog-badge" style="background: rgba(250, 163, 12, 0.15); color: #D97706;">
+            <span class="live-dot" style="background: #FAA30C;"></span> Live Healthcare Community Feedback
+          </span>
+          <h3 id="writeReviewModalTitle" style="margin-top: 0.35rem; font-size: 1.35rem;">Share Your Healthserve Experience</h3>
+          <p style="font-size: 0.84rem; color: var(--text-muted); margin: 0.25rem 0 0 0; line-height: 1.45;">
+            Your review will be published live on the platform to guide healthcare colleagues navigating their GCC licensing.
+          </p>
+        </div>
+        <button type="button" class="dialog-close-btn" id="closeWriteReviewDialog" aria-label="Close dialog">✕</button>
+      </div>
+
+      <div class="dialog-body" style="padding: 1.5rem 1.75rem;">
+        <form id="writeReviewForm" novalidate>
+          <!-- Star Rating Selector -->
+          <div class="review-form-group review-star-select-group" style="margin-bottom: 1.25rem;">
+            <label class="review-form-label" style="display: block; font-size: 0.84rem; font-weight: 750; color: #1E293B; margin-bottom: 0.4rem;">
+              Overall Rating <span style="color: #EF4444;">*</span>
+            </label>
+            <div class="star-rating-selector" id="starRatingSelector" role="radiogroup" aria-label="Select star rating">
+              <button type="button" class="star-select-btn active" data-rating="1" aria-label="1 star">★</button>
+              <button type="button" class="star-select-btn active" data-rating="2" aria-label="2 stars">★</button>
+              <button type="button" class="star-select-btn active" data-rating="3" aria-label="3 stars">★</button>
+              <button type="button" class="star-select-btn active" data-rating="4" aria-label="4 stars">★</button>
+              <button type="button" class="star-select-btn active" data-rating="5" aria-label="5 stars">★</button>
+              <span class="star-rating-desc" id="starRatingDesc">5.0 — Excellent Guidance</span>
+            </div>
+            <input type="hidden" id="reviewRatingInput" name="rating" value="5">
+          </div>
+
+          <div class="review-form-grid-2">
+            <!-- Full Name -->
+            <div class="review-form-group">
+              <label for="reviewNameInput" class="review-form-label">
+                Your Full Name <span style="color: #EF4444;">*</span>
+              </label>
+              <input type="text" id="reviewNameInput" class="review-form-input" placeholder="e.g. Dr. Ayesha Khan, Priya Nair" required autocomplete="name">
+              <div class="review-field-error" id="reviewNameError" style="display:none;">Please enter your name</div>
+            </div>
+
+            <!-- Profession -->
+            <div class="review-form-group">
+              <label for="reviewProfessionInput" class="review-form-label">
+                Profession / Specialty <span style="color: #EF4444;">*</span>
+              </label>
+              <input type="text" id="reviewProfessionInput" class="review-form-input" placeholder="e.g. Registered Nurse, General Practitioner" required>
+              <div class="review-field-error" id="reviewProfessionError" style="display:none;">Please specify your profession</div>
+            </div>
+          </div>
+
+          <div class="review-form-grid-2">
+            <!-- Country -->
+            <div class="review-form-group">
+              <label for="reviewCountrySelect" class="review-form-label">
+                Country of Origin / Practice <span style="color: #EF4444;">*</span>
+              </label>
+              <select id="reviewCountrySelect" class="review-form-select" required>
+                <option value="India" selected>🇮🇳 India</option>
+                <option value="Philippines">🇵🇭 Philippines</option>
+                <option value="Nepal">🇳🇵 Nepal</option>
+                <option value="Egypt">🇪🇬 Egypt</option>
+                <option value="United Arab Emirates">🇦🇪 UAE</option>
+                <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                <option value="Pakistan">🇵🇰 Pakistan</option>
+                <option value="Jordan">🇯🇴 Jordan</option>
+                <option value="Nigeria">🇳🇬 Nigeria</option>
+                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                <option value="Sudan">🇸🇩 Sudan</option>
+                <option value="Syria">🇸🇾 Syria</option>
+                <option value="Lebanon">🇱🇧 Lebanon</option>
+                <option value="Sri Lanka">🇱🇰 Sri Lanka</option>
+                <option value="Other">🌍 Other Country</option>
+              </select>
+            </div>
+
+            <!-- Category -->
+            <div class="review-form-group">
+              <label for="reviewCategorySelect" class="review-form-label">
+                Service / Guidance Area <span style="color: #EF4444;">*</span>
+              </label>
+              <select id="reviewCategorySelect" class="review-form-select" required>
+                <option value="Licensing & Career Guidance" selected>Licensing & Career Guidance</option>
+                <option value="Licensing">Licensing</option>
+                <option value="Career Guidance">Career Guidance</option>
+                <option value="Training">Training</option>
+                <option value="Exam Preparation">Exam Preparation</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Review Text -->
+          <div class="review-form-group">
+            <label for="reviewTextInput" class="review-form-label">
+              Your Review & Experience <span style="color: #EF4444;">*</span>
+            </label>
+            <textarea id="reviewTextInput" class="review-form-textarea" rows="4" placeholder="How did Healthserve assist your licensing requirements, eligibility, or GCC career journey? Please share your experience..." required minlength="15"></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.35rem;">
+              <span class="review-field-error" id="reviewTextError" style="display:none;">Please enter at least 15 characters</span>
+              <span id="reviewCharCount" style="font-size: 0.74rem; color: #94A3B8; margin-left: auto;">0 / 15 min chars</span>
+            </div>
+          </div>
+
+          <!-- Submit CTA -->
+          <div class="review-dialog-footer" style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; border-top: 1px solid #F1F5F9; padding-top: 1.25rem;">
+            <button type="button" class="btn-secondary" id="cancelWriteReviewBtn" style="min-height: 44px; padding: 0.65rem 1.25rem;">
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary" id="submitWriteReviewBtn" style="min-height: 44px; padding: 0.65rem 1.65rem; background: #FAA30C; border-color: #FAA30C; font-weight: 800;">
+              <span>★ Publish Review Live</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Success Confirmation View (Hidden by default) -->
+        <div id="writeReviewSuccessView" style="display:none; text-align: center; padding: 2rem 1rem;">
+          <div style="width: 58px; height: 58px; border-radius: 50%; background: #ECFDF5; border: 2px solid #A7F3D0; color: #10B981; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem auto;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <h3 style="font-size: 1.45rem; color: #0F172A; margin-bottom: 0.5rem; font-weight: 850;">Review Published Live!</h3>
+          <p id="writeReviewSuccessMsg" style="font-size: 0.94rem; color: #64748B; max-width: 440px; margin: 0 auto 1.75rem auto; line-height: 1.55;">
+            Thank you! Your experience has been recorded and published live as the first review in the Healthserve testimonials carousel.
+          </p>
+          <button type="button" class="btn-primary" id="viewMyReviewBtn" style="min-height: 46px; padding: 0.75rem 2rem; font-weight: 750;">
+            View My Review in Carousel ↓
+          </button>
+        </div>
       </div>
     </div>
   </dialog>
