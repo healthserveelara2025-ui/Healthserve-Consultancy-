@@ -190,6 +190,7 @@
     initFaqAccordion();
     initStickyBar();
     initWhatsAppLinks();
+    initReviewsSection();
 
     // Track entry gate view on initial load
     trackEvent('entry_gate_view');
@@ -583,7 +584,7 @@
               </h4>
               <p>Wondering if your specific qualification and years of experience qualify you under ${data.defaultAuthority} regulations?</p>
               <button class="btn-primary" style="font-size: 0.9rem; padding: 0.75rem 1.25rem;" onclick="window.HealthserveApp.syncAndScrollToForm('${data.defaultAuthority}')">
-                Check My ${data.defaultAuthority} Eligibility — Free
+                Check My ${data.defaultAuthority} Eligibility
               </button>
             </div>
           </div>
@@ -1612,5 +1613,724 @@ Could you please provide guidance on what my specific next steps should be?`;
       }
     }
   };
+
+  // ==========================================
+  // REVIEWS & TESTIMONIALS CONTROLLER (120 REVIEWS)
+  // ==========================================
+  function initReviewsSection() {
+    const reviewsSection = document.getElementById('reviewsSection');
+    const track = document.getElementById('reviewsTrack');
+    const viewport = document.getElementById('reviewsViewport');
+    const prevBtn = document.getElementById('reviewsPrevBtn');
+    const nextBtn = document.getElementById('reviewsNextBtn');
+    const paginationDots = document.getElementById('reviewsPaginationDots');
+    const filterChips = document.querySelectorAll('.review-filter-chip');
+    const writeBtn = document.getElementById('writeReviewBtn');
+    const canvas = document.getElementById('reviewsConstellationCanvas');
+
+    // Write a Review Modal Elements
+    const writeModal = document.getElementById('writeReviewModal');
+    const closeWriteModal = document.getElementById('closeWriteReviewDialog');
+    const cancelWriteBtn = document.getElementById('cancelWriteReviewBtn');
+    const writeForm = document.getElementById('writeReviewForm');
+    const successView = document.getElementById('writeReviewSuccessView');
+    const viewMyReviewBtn = document.getElementById('viewMyReviewBtn');
+    const charCountEl = document.getElementById('reviewCharCount');
+    const reviewTextEl = document.getElementById('reviewTextInput');
+    const ratingDescEl = document.getElementById('starRatingDesc');
+    const ratingInputEl = document.getElementById('reviewRatingInput');
+    const starBtns = document.querySelectorAll('.star-select-btn');
+
+    if (!reviewsSection || !track) return;
+
+    // Helper: Retrieve locally stored user reviews
+    function getStoredUserReviews() {
+      try {
+        const raw = localStorage.getItem('healthserve_user_reviews');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) return parsed;
+        }
+      } catch (e) {}
+      return [];
+    }
+
+    // Base mock dataset
+    const baseData = (typeof HEALTHSERVE_REVIEWS_DATA !== 'undefined' && Array.isArray(HEALTHSERVE_REVIEWS_DATA))
+      ? HEALTHSERVE_REVIEWS_DATA
+      : [];
+
+    let userReviews = getStoredUserReviews();
+    let reviewsData = [...userReviews, ...baseData];
+
+    if (!reviewsData.length) return;
+
+    let currentCategory = 'ALL';
+    let filteredReviews = [...reviewsData];
+    let currentIndex = 0;
+    let autoRotateTimer = null;
+    let isInteracting = false;
+    let isDragging = false;
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+
+    // Dynamically recalculate and update Rating Summary score, counts, and breakdown bars
+    function updateRatingSummaryUI(list) {
+      if (!list || !list.length) return;
+      const total = list.length;
+      const counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+      let sum = 0;
+
+      list.forEach(r => {
+        const star = Math.min(5, Math.max(1, Math.round(r.rating || 5)));
+        counts[star] = (counts[star] || 0) + 1;
+        sum += star;
+      });
+
+      const avg = (sum / total).toFixed(1);
+
+      const scoreEl = document.getElementById('ratingScoreNum');
+      if (scoreEl) scoreEl.textContent = avg;
+
+      const totalEl = document.getElementById('ratingTotalCount');
+      if (totalEl) totalEl.textContent = `${total} Reviews`;
+
+      const scoreTextEl = document.getElementById('ratingScoreText');
+      if (scoreTextEl) scoreTextEl.textContent = `${avg} / 5`;
+
+      for (let s = 1; s <= 5; s++) {
+        const numEl = document.getElementById(`breakdownNum${s}`);
+        const barEl = document.getElementById(`breakdownBar${s}`);
+        if (numEl) numEl.textContent = counts[s];
+        if (barEl) {
+          const pct = ((counts[s] / total) * 100).toFixed(1);
+          barEl.style.width = `${pct}%`;
+        }
+      }
+    }
+
+    // Apply category filter to active reviews
+    function applyCategoryFilter(cat) {
+      currentCategory = cat;
+      if (cat === 'ALL') {
+        filteredReviews = [...reviewsData];
+      } else if (cat === 'LICENSING') {
+        filteredReviews = reviewsData.filter(r => (r.category || '').toUpperCase().includes('LICENSING'));
+      } else if (cat === 'CAREER GUIDANCE') {
+        filteredReviews = reviewsData.filter(r => (r.category || '').toUpperCase().includes('CAREER'));
+      } else if (cat === 'TRAINING') {
+        filteredReviews = reviewsData.filter(r => (r.category || '').toUpperCase().includes('TRAINING'));
+      } else if (cat === 'EXAM PREPARATION') {
+        filteredReviews = reviewsData.filter(r => (r.category || '').toUpperCase().includes('EXAM'));
+      }
+    }
+
+    // Sync reviews from backend /api/reviews if server is available
+    function syncServerReviews() {
+      fetch('/api/reviews')
+        .then(res => res.json())
+        .then(data => {
+          if (data && Array.isArray(data.reviews) && data.reviews.length > 0) {
+            const stored = getStoredUserReviews();
+            const storedIds = new Set(stored.map(x => x.id));
+            let hasNew = false;
+            data.reviews.forEach(sr => {
+              if (!storedIds.has(sr.id)) {
+                sr.isLiveUserReview = true;
+                stored.unshift(sr);
+                storedIds.add(sr.id);
+                hasNew = true;
+              }
+            });
+            if (hasNew) {
+              localStorage.setItem('healthserve_user_reviews', JSON.stringify(stored));
+              reviewsData = [...stored, ...baseData];
+              applyCategoryFilter(currentCategory);
+              updateRatingSummaryUI(reviewsData);
+              renderCards();
+            }
+          }
+        })
+        .catch(() => {});
+    }
+
+    // Calculate items visible per page based on viewport width
+    function getCardsPerView() {
+      const w = window.innerWidth;
+      if (w <= 768) return 1;
+      if (w <= 1100) return 2;
+      return 3;
+    }
+
+    // Render Review Cards
+    function renderCards() {
+      track.innerHTML = '';
+
+      filteredReviews.forEach((r) => {
+        const card = document.createElement('div');
+        card.className = 'review-card' + (r.isLiveUserReview ? ' user-live-card' : '');
+        card.setAttribute('data-id', r.id);
+        card.setAttribute('data-category', r.category);
+
+        // Generate gold stars
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+          starsHtml += `<span class="star-glyph">${i <= r.rating ? '★' : '☆'}</span>`;
+        }
+
+        const country = r.country || 'Global';
+        const initial = r.name ? r.name.charAt(0).toUpperCase() : 'H';
+        const liveBadgeHtml = r.isLiveUserReview
+          ? `<span class="review-live-pill"><span class="live-dot" style="width: 6px; height: 6px;"></span> Live Review</span>`
+          : '';
+
+        card.innerHTML = `
+          <div class="review-card-top">
+            <div class="review-stars" aria-label="${r.rating} out of 5 stars">${starsHtml}</div>
+            <div style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end;">
+              <span class="review-category-badge">${r.category || 'General'}</span>
+              ${liveBadgeHtml}
+            </div>
+          </div>
+          <p class="review-quote-text">"${r.review}"</p>
+          <div class="review-author-wrap">
+            <div class="review-avatar-circle" aria-hidden="true">${initial}</div>
+            <div class="review-author-info">
+              <span class="review-author-name">${r.name}</span>
+              <span class="review-author-role">
+                <span>${r.profession}</span> · <span class="review-country-pill">${country}</span>
+              </span>
+            </div>
+          </div>
+        `;
+        track.appendChild(card);
+      });
+
+      updatePagination();
+      moveToIndex(0, false);
+    }
+
+    // Update Pagination Dots
+    function updatePagination() {
+      if (!paginationDots) return;
+      paginationDots.innerHTML = '';
+      const cardsPerView = getCardsPerView();
+      const totalPages = Math.ceil(filteredReviews.length / cardsPerView);
+      const maxDots = Math.min(totalPages, 8); // Display clean dot cluster
+
+      for (let i = 0; i < maxDots; i++) {
+        const dot = document.createElement('button');
+        dot.className = `reviews-dot ${i === 0 ? 'active' : ''}`;
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to review slide ${i + 1}`);
+        dot.addEventListener('click', () => {
+          moveToIndex(i * cardsPerView);
+          resetAutoRotate();
+        });
+        paginationDots.appendChild(dot);
+      }
+    }
+
+    function updateActiveDot() {
+      if (!paginationDots) return;
+      const dots = paginationDots.querySelectorAll('.reviews-dot');
+      if (!dots.length) return;
+      const cardsPerView = getCardsPerView();
+      const activePageIndex = Math.min(Math.floor(currentIndex / cardsPerView), dots.length - 1);
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === activePageIndex);
+      });
+    }
+
+    // Move to specific card index
+    function moveToIndex(index, animate = true) {
+      const cards = track.querySelectorAll('.review-card');
+      if (!cards.length) return;
+
+      const cardsPerView = getCardsPerView();
+      const maxIndex = Math.max(0, cards.length - cardsPerView);
+
+      // Clamp or cycle
+      if (index > maxIndex) {
+        currentIndex = 0;
+      } else if (index < 0) {
+        currentIndex = maxIndex;
+      } else {
+        currentIndex = index;
+      }
+
+      // Compute translate distance
+      const card = cards[0];
+      const cardRect = card.getBoundingClientRect();
+      const trackStyle = window.getComputedStyle(track);
+      const gap = parseFloat(trackStyle.gap) || 28;
+      const step = cardRect.width + gap;
+      const targetTranslate = -(currentIndex * step);
+
+      if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${targetTranslate}px)`;
+      } else {
+        track.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        track.style.transform = `translateX(${targetTranslate}px)`;
+      }
+
+      prevTranslate = targetTranslate;
+      currentTranslate = targetTranslate;
+
+      if (prevBtn) prevBtn.disabled = (currentIndex === 0);
+      if (nextBtn) nextBtn.disabled = (currentIndex >= maxIndex && maxIndex > 0);
+
+      updateActiveDot();
+    }
+
+    // Next / Prev controls
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const cardsPerView = getCardsPerView();
+        moveToIndex(currentIndex + cardsPerView);
+        resetAutoRotate();
+        trackEvent('review_carousel_next');
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        const cardsPerView = getCardsPerView();
+        moveToIndex(currentIndex - cardsPerView);
+        resetAutoRotate();
+        trackEvent('review_carousel_prev');
+      });
+    }
+
+    // Filter Chips Event
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => {
+          c.classList.remove('active');
+          c.setAttribute('aria-selected', 'false');
+        });
+        chip.classList.add('active');
+        chip.setAttribute('aria-selected', 'true');
+
+        const cat = chip.getAttribute('data-category');
+        applyCategoryFilter(cat);
+
+        renderCards();
+        resetAutoRotate();
+        trackEvent('review_filter_click', { category: cat });
+      });
+    });
+
+    // ==========================================
+    // INTERACTIVE WRITE A REVIEW MODAL LOGIC
+    // ==========================================
+    let selectedRating = 5;
+    const ratingDescriptions = {
+      5: '5.0 — Excellent Guidance',
+      4: '4.0 — Very Helpful',
+      3: '3.0 — Satisfactory Experience',
+      2: '2.0 — Needs Improvement',
+      1: '1.0 — Disappointed'
+    };
+
+    function setRating(val) {
+      selectedRating = val;
+      if (ratingInputEl) ratingInputEl.value = val;
+      if (ratingDescEl) ratingDescEl.textContent = ratingDescriptions[val] || `${val}.0`;
+      starBtns.forEach(btn => {
+        const btnVal = parseInt(btn.getAttribute('data-rating'), 10);
+        btn.classList.toggle('active', btnVal <= val);
+      });
+    }
+
+    starBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = parseInt(btn.getAttribute('data-rating'), 10);
+        setRating(val);
+      });
+      btn.addEventListener('mouseenter', () => {
+        const val = parseInt(btn.getAttribute('data-rating'), 10);
+        starBtns.forEach(b => {
+          const bVal = parseInt(b.getAttribute('data-rating'), 10);
+          b.classList.toggle('active', bVal <= val);
+        });
+        if (ratingDescEl) ratingDescEl.textContent = ratingDescriptions[val] || `${val}.0`;
+      });
+    });
+
+    const starSelector = document.getElementById('starRatingSelector');
+    if (starSelector) {
+      starSelector.addEventListener('mouseleave', () => {
+        setRating(selectedRating);
+      });
+    }
+
+    if (reviewTextEl && charCountEl) {
+      reviewTextEl.addEventListener('input', () => {
+        const len = reviewTextEl.value.trim().length;
+        charCountEl.textContent = `${len} / 15 min chars`;
+        charCountEl.style.color = len >= 15 ? '#10B981' : '#94A3B8';
+      });
+    }
+
+    function openReviewModal() {
+      if (writeModal) {
+        if (writeForm) {
+          writeForm.reset();
+          writeForm.style.display = 'block';
+        }
+        if (successView) successView.style.display = 'none';
+        setRating(5);
+        if (charCountEl) {
+          charCountEl.textContent = '0 / 15 min chars';
+          charCountEl.style.color = '#94A3B8';
+        }
+        document.querySelectorAll('.review-field-error').forEach(el => el.style.display = 'none');
+        writeModal.showModal();
+        trackEvent('open_write_review_modal');
+      }
+    }
+
+    function closeReviewModal() {
+      if (writeModal && writeModal.open) {
+        writeModal.close();
+      }
+    }
+
+    if (writeBtn) {
+      writeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openReviewModal();
+      });
+    }
+
+    if (closeWriteModal) closeWriteModal.addEventListener('click', closeReviewModal);
+    if (cancelWriteBtn) cancelWriteBtn.addEventListener('click', closeReviewModal);
+    if (viewMyReviewBtn) {
+      viewMyReviewBtn.addEventListener('click', () => {
+        closeReviewModal();
+        reviewsSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    if (writeModal) {
+      writeModal.addEventListener('click', (e) => {
+        const rect = writeModal.getBoundingClientRect();
+        const isInDialog = (
+          rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+          rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+        );
+        if (!isInDialog) closeReviewModal();
+      });
+    }
+
+    // Review Form Submission Handler
+    if (writeForm) {
+      writeForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let valid = true;
+
+        const nameInput = document.getElementById('reviewNameInput');
+        const profInput = document.getElementById('reviewProfessionInput');
+        const countryInput = document.getElementById('reviewCountrySelect');
+        const catInput = document.getElementById('reviewCategorySelect');
+        const textInput = document.getElementById('reviewTextInput');
+
+        const nameErr = document.getElementById('reviewNameError');
+        const profErr = document.getElementById('reviewProfessionError');
+        const textErr = document.getElementById('reviewTextError');
+
+        if (nameErr) nameErr.style.display = 'none';
+        if (profErr) profErr.style.display = 'none';
+        if (textErr) textErr.style.display = 'none';
+
+        if (!nameInput.value.trim()) {
+          if (nameErr) nameErr.style.display = 'block';
+          nameInput.focus();
+          valid = false;
+        } else if (!profInput.value.trim()) {
+          if (profErr) profErr.style.display = 'block';
+          profInput.focus();
+          valid = false;
+        } else if (textInput.value.trim().length < 15) {
+          if (textErr) textErr.style.display = 'block';
+          textInput.focus();
+          valid = false;
+        }
+
+        if (!valid) return;
+
+        const submitBtn = document.getElementById('submitWriteReviewBtn');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>Publishing Live...</span>';
+        }
+
+        const newReview = {
+          id: 'user_' + Date.now(),
+          name: nameInput.value.trim(),
+          profession: profInput.value.trim(),
+          country: countryInput.value || 'UAE',
+          rating: selectedRating,
+          category: catInput.value || 'Licensing & Career Guidance',
+          review: textInput.value.trim(),
+          isLiveUserReview: true,
+          timestamp: new Date().toISOString()
+        };
+
+        // 1. Save to local storage for persistent browser session
+        try {
+          const stored = getStoredUserReviews();
+          stored.unshift(newReview);
+          localStorage.setItem('healthserve_user_reviews', JSON.stringify(stored));
+        } catch (err) {}
+
+        // 2. Persist to server /api/reviews
+        fetch('/api/reviews', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newReview)
+        }).catch(() => {});
+
+        // 3. Prepend to live reviews dataset
+        reviewsData.unshift(newReview);
+        applyCategoryFilter(currentCategory);
+
+        // 4. Update rating score, total count, and 1-5 breakdown live
+        updateRatingSummaryUI(reviewsData);
+
+        // 5. Re-render carousel cards and transition to first slide
+        renderCards();
+        moveToIndex(0, true);
+
+        // 6. Display success view inside modal
+        setTimeout(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>★ Publish Review Live</span>';
+          }
+          if (writeForm) writeForm.style.display = 'none';
+          if (successView) successView.style.display = 'block';
+          trackEvent('review_submitted', { rating: selectedRating, category: newReview.category });
+        }, 300);
+      });
+    }
+
+    // Touch & Pointer Drag Interaction (Momentum drag)
+    if (viewport) {
+      let startY = 0;
+      let isHorizontalSwipe = false;
+
+      viewport.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        isHorizontalSwipe = false;
+        startX = e.clientX;
+        startY = e.clientY;
+        track.style.transition = 'none';
+        pauseAutoRotate();
+      });
+
+      viewport.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const diffX = e.clientX - startX;
+        const diffY = e.clientY - startY;
+
+        if (!isHorizontalSwipe) {
+          // If moved vertically more than horizontally, allow native page scroll
+          if (Math.abs(diffY) > 8 && Math.abs(diffY) > Math.abs(diffX)) {
+            isDragging = false;
+            return;
+          }
+          if (Math.abs(diffX) > 8 && Math.abs(diffX) >= Math.abs(diffY)) {
+            isHorizontalSwipe = true;
+            try { viewport.setPointerCapture(e.pointerId); } catch(err) {}
+          }
+        }
+
+        if (isHorizontalSwipe) {
+          track.style.transform = `translateX(${prevTranslate + diffX}px)`;
+        }
+      });
+
+      const handlePointerEnd = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        try { viewport.releasePointerCapture(e.pointerId); } catch(err) {}
+
+        if (!isHorizontalSwipe) {
+          resetAutoRotate();
+          return;
+        }
+        isHorizontalSwipe = false;
+
+        const cards = track.querySelectorAll('.review-card');
+        if (!cards.length) return;
+        const cardRect = cards[0].getBoundingClientRect();
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 28;
+        const step = cardRect.width + gap;
+        const movedBy = (e.clientX - startX);
+
+        if (movedBy < -50) {
+          moveToIndex(currentIndex + 1);
+        } else if (movedBy > 50) {
+          moveToIndex(currentIndex - 1);
+        } else {
+          moveToIndex(currentIndex);
+        }
+        resetAutoRotate();
+      };
+
+      viewport.addEventListener('pointerup', handlePointerEnd);
+      viewport.addEventListener('pointercancel', handlePointerEnd);
+
+      viewport.addEventListener('pointerenter', pauseAutoRotate);
+      viewport.addEventListener('pointerleave', resumeAutoRotate);
+      viewport.addEventListener('focusin', pauseAutoRotate);
+      viewport.addEventListener('focusout', resumeAutoRotate);
+    }
+
+    // Auto-Rotation Timer
+    function startAutoRotate() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (autoRotateTimer) clearInterval(autoRotateTimer);
+      autoRotateTimer = setInterval(() => {
+        if (!isInteracting && !isDragging) {
+          const cardsPerView = getCardsPerView();
+          moveToIndex(currentIndex + 1);
+        }
+      }, 5500);
+    }
+
+    function pauseAutoRotate() {
+      isInteracting = true;
+      if (autoRotateTimer) clearInterval(autoRotateTimer);
+    }
+
+    function resumeAutoRotate() {
+      isInteracting = false;
+      startAutoRotate();
+    }
+
+    function resetAutoRotate() {
+      pauseAutoRotate();
+      setTimeout(() => {
+        isInteracting = false;
+        startAutoRotate();
+      }, 4000);
+    }
+
+    // Resize recalculation
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        updatePagination();
+        moveToIndex(currentIndex, false);
+      }, 150);
+    });
+
+    // Initial render & live sync
+    updateRatingSummaryUI(reviewsData);
+    renderCards();
+    startAutoRotate();
+    syncServerReviews();
+
+    // ==========================================
+    // AMBIENT CONSTELLATION VISUAL (CANVAS)
+    // ==========================================
+    if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        let width = canvas.width = reviewsSection.offsetWidth;
+        let height = canvas.height = reviewsSection.offsetHeight;
+        let animFrame = null;
+        let isSectionVisible = false;
+
+        const particleCount = 28;
+        const particles = [];
+        const colors = ['#30C4F2', '#0284C7', '#FAA30C'];
+
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            radius: Math.random() * 1.8 + 1.2,
+            color: colors[Math.floor(Math.random() * colors.length)]
+          });
+        }
+
+        function drawConstellation() {
+          if (!isSectionVisible) return;
+          ctx.clearRect(0, 0, width, height);
+
+          // Draw connecting links
+          for (let i = 0; i < particleCount; i++) {
+            for (let j = i + 1; j < particleCount; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 120) {
+                const alpha = (1 - dist / 120) * 0.15;
+                ctx.strokeStyle = `rgba(48, 196, 242, ${alpha})`;
+                ctx.lineWidth = 0.85;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          // Draw particles
+          particles.forEach(p => {
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = 0.65;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
+          });
+
+          animFrame = requestAnimationFrame(drawConstellation);
+        }
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = reviewsSection.offsetWidth;
+          height = canvas.height = reviewsSection.offsetHeight;
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              isSectionVisible = true;
+              if (!animFrame) animFrame = requestAnimationFrame(drawConstellation);
+            } else {
+              isSectionVisible = false;
+              if (animFrame) {
+                cancelAnimationFrame(animFrame);
+                animFrame = null;
+              }
+            }
+          });
+        }, { threshold: 0.1 });
+
+        observer.observe(reviewsSection);
+      }
+    }
+  }
+
+  window.HealthserveApp = HealthserveApp;
 
 })();

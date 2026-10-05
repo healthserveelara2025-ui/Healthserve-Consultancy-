@@ -55,6 +55,48 @@ const server = http.createServer((req, res) => {
     }
   }
 
+  // Live reviews endpoint (Live platform reviews persistence)
+  if (reqPath === '/api/reviews') {
+    const reviewsFile = path.join(__dirname, 'user-reviews.json');
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', () => {
+        try {
+          const review = JSON.parse(body || '{}');
+          if (!review.name || !review.review) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ status: 'error', message: 'Name and review text are required' }));
+            return;
+          }
+          if (!review.id) review.id = 'user_' + Date.now();
+          if (!review.timestamp) review.timestamp = new Date().toISOString();
+          let reviews = [];
+          if (fs.existsSync(reviewsFile)) {
+            try { reviews = JSON.parse(fs.readFileSync(reviewsFile, 'utf8')); } catch (e) {}
+          }
+          reviews.unshift(review);
+          fs.writeFileSync(reviewsFile, JSON.stringify(reviews, null, 2));
+          console.log(`[Review Recorded] Total user reviews: ${reviews.length} | Name: ${review.name} | Rating: ${review.rating}★ | Category: ${review.category}`);
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+          res.end(JSON.stringify({ status: 'success', recorded: true, count: reviews.length, review }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ status: 'error', message: err.message }));
+        }
+      });
+      return;
+    } else if (req.method === 'GET') {
+      let reviews = [];
+      if (fs.existsSync(reviewsFile)) {
+        try { reviews = JSON.parse(fs.readFileSync(reviewsFile, 'utf8')); } catch (e) {}
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ count: reviews.length, reviews }));
+      return;
+    }
+  }
+
   if (reqPath === '/') reqPath = '/index.html';
 
   const filePath = path.join(__dirname, reqPath);
