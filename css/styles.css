@@ -670,7 +670,22 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
-/* Full Cover Background Video & Image Fallback */
+/* Localized daylight contrast feather strictly behind left text — keeps entire right side 100% full view */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.94) 0%, 
+    rgba(255, 255, 255, 0.86) 35%, 
+    rgba(255, 255, 255, 0.42) 50%, 
+    rgba(255, 255, 255, 0) 65%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Full Cover Ultra-Realistic Background Image (No Dull Overlays) */
 .hero-bg-cover {
   position: absolute;
   inset: 0;
@@ -678,110 +693,23 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
-.hero-bg-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 25%;
-  z-index: 1;
-  filter: saturate(1.12) brightness(1.03);
-  transform: scale(1.02);
-  transition: transform 1.2s ease, filter 0.5s ease;
-}
-
 .hero-bg-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 25%;
+  object-position: center;
+  z-index: 1;
+  filter: saturate(1.06) brightness(1.02) contrast(1.02);
 }
 
-/* Luminous Bright Daylight Scrim with Frosted Glass Blur */
-.hero-bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, 
-    rgba(255, 255, 255, 0.96) 0%, 
-    rgba(248, 250, 252, 0.92) 42%, 
-    rgba(240, 249, 255, 0.68) 72%, 
-    rgba(255, 255, 255, 0.35) 100%
-  );
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  z-index: 2;
-}
-
-/* Floating Radiant Ambient Glow Orbs */
-.hero-glow-orb-1 {
-  position: absolute;
-  top: -80px;
-  left: 8%;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(48, 196, 242, 0.22) 0%, transparent 70%);
-  filter: blur(60px);
-  animation: floatOrb 12s ease-in-out infinite alternate;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.hero-glow-orb-2 {
-  position: absolute;
-  bottom: -60px;
-  right: 12%;
-  width: 440px;
-  height: 440px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(250, 163, 12, 0.18) 0%, transparent 70%);
-  filter: blur(60px);
-  animation: floatOrb 15s ease-in-out infinite alternate-reverse;
-  z-index: 2;
-  pointer-events: none;
-}
-
-@keyframes floatOrb {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -25px) scale(1.1); }
-  100% { transform: translate(-20px, 20px) scale(0.96); }
-}
-
-/* Floating Video Playback Control */
+/* Dull overlays completely removed as requested */
+.hero-bg-overlay,
+.hero-glow-orb-1,
+.hero-glow-orb-2,
 .hero-video-toggle {
-  position: absolute;
-  bottom: 1.25rem;
-  right: 1.5rem;
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(203, 213, 225, 0.85);
-  border-radius: var(--radius-full);
-  padding: 0.4rem 0.85rem;
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: #1E293B;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
-}
-
-.hero-video-toggle:hover {
-  background: #FFFFFF;
-  color: #0284C7;
-  border-color: #0284C7;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
-}
-
-.hero-video-toggle svg {
-  flex-shrink: 0;
-  color: #0284C7;
+  display: none !important;
 }
 
 .hero-grid {
@@ -794,8 +722,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-content {
-  max-width: 650px;
+  max-width: 630px;
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 5;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 @keyframes fadeInUp {
@@ -817,13 +751,12 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 1.25rem;
-  backdrop-filter: blur(8px);
 }
 
 .hero-headline {
   font-size: clamp(2.35rem, 4vw, 3.4rem);
-  font-weight: 800;
-  color: #0F172A;
+  font-weight: 850;
+  color: #0B132B;
   margin-bottom: 1.15rem;
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -842,7 +775,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-subhead {
   font-size: 1.22rem;
   font-weight: 700;
-  color: #1E293B;
+  color: #0F172A;
   margin-bottom: 1.15rem;
   line-height: 1.45;
 }
@@ -2738,9 +2671,77 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.25rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid #1E293B;
+}
+
+.footer-social-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.footer-social-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #94A3B8;
+  letter-spacing: 0.02em;
+}
+
+.footer-social-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.footer-social-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #CBD5E1;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-social-link:hover {
+  transform: translateY(-3px);
+  color: #FFFFFF;
+}
+
+.footer-social-link.instagram:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(214, 36, 159, 0.4);
+}
+
+.footer-social-link.linkedin:hover {
+  background: #0A66C2;
+  border-color: #0A66C2;
+  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.4);
+}
+
+.footer-social-link.facebook:hover {
+  background: #1877F2;
+  border-color: #1877F2;
+  box-shadow: 0 4px 14px rgba(24, 119, 242, 0.4);
+}
+
+.footer-social-link.youtube:hover {
+  background: #FF0000;
+  border-color: #FF0000;
+  box-shadow: 0 4px 14px rgba(255, 0, 0, 0.4);
+}
+
+.footer-social-link.whatsapp:hover {
+  background: #25D366;
+  border-color: #25D366;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
 }
 
 .footer-disclaimer-box {
@@ -2869,6 +2870,15 @@ dialog.custom-dialog::backdrop {
 
   .hero-content {
     max-width: 100%;
+    padding: 0;
+  }
+
+  .hero-section::before {
+    background: linear-gradient(180deg, 
+      rgba(255, 255, 255, 0.96) 0%, 
+      rgba(255, 255, 255, 0.88) 60%, 
+      rgba(255, 255, 255, 0.35) 100%
+    );
   }
 
   .dest-panel-grid {
