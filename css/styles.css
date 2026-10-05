@@ -670,6 +670,21 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
+/* Localized daylight contrast feather strictly behind left text — keeps entire right side 100% full view */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.94) 0%, 
+    rgba(255, 255, 255, 0.86) 35%, 
+    rgba(255, 255, 255, 0.42) 50%, 
+    rgba(255, 255, 255, 0) 65%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* Full Cover Ultra-Realistic Background Image (No Dull Overlays) */
 .hero-bg-cover {
   position: absolute;
@@ -707,17 +722,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-content {
-  max-width: 650px;
+  max-width: 630px;
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(255, 255, 255, 0.90);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(255, 255, 255, 0.95);
-  border-radius: 24px;
-  padding: 2.5rem 2.6rem 2.25rem 2.6rem;
-  box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8);
   position: relative;
   z-index: 5;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 @keyframes fadeInUp {
@@ -2858,8 +2870,15 @@ dialog.custom-dialog::backdrop {
 
   .hero-content {
     max-width: 100%;
-    padding: 1.75rem 1.35rem;
-    border-radius: 20px;
+    padding: 0;
+  }
+
+  .hero-section::before {
+    background: linear-gradient(180deg, 
+      rgba(255, 255, 255, 0.96) 0%, 
+      rgba(255, 255, 255, 0.88) 60%, 
+      rgba(255, 255, 255, 0.35) 100%
+    );
   }
 
   .dest-panel-grid {
