@@ -2953,18 +2953,105 @@ dialog.custom-dialog::backdrop {
     line-height: 1.55;
   }
 
-  /* Header */
+  /* Header Mobile Optimization */
   .site-header {
-    height: 60px;
+    height: auto;
+    min-height: 52px;
+    padding: 0.5rem 0;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .brand-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    min-width: 0;
   }
 
   .brand-logo {
-    height: 30px;
+    height: 28px;
     width: auto;
+    max-width: 140px;
+    object-fit: contain;
+  }
+
+  .brand-location {
+    display: none !important; /* Hide location pill on mobile to prevent overcrowding */
+  }
+
+  .header-consultant-status {
+    display: none !important;
+  }
+
+  .btn-career-hub-header {
+    display: none !important; /* Secondary outbound link hidden in mobile header */
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .header-actions .btn-whatsapp {
+    padding: 0.42rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    gap: 0.35rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+  }
+
+  .header-actions .btn-whatsapp svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 
   .header-actions .btn-whatsapp span {
     display: inline;
+  }
+
+  /* User Welcome Bar Mobile */
+  .user-welcome-bar {
+    padding: 0.5rem 0;
+    background: #F0F9FF;
+    border-bottom: 1px solid #BAE6FD;
+  }
+
+  .user-welcome-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .user-welcome-text {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--primary-deep);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .user-welcome-bar .section-tag {
+    white-space: nowrap;
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.55rem !important;
+    flex-shrink: 0;
+    margin: 0;
+    line-height: 1.2;
   }
 
   /* Hero Section */
@@ -3391,6 +3478,99 @@ dialog.custom-dialog::backdrop {
   .gate-submit-btn {
     min-height: 50px;
     font-size: 0.94rem;
+  }
+
+  /* Mobile Grids Harmonization */
+  .tools-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .timeline-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .services-grid-8 {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .trust-pillars-row {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+}
+
+/* ==========================================================================
+   EXTRA-COMPACT MOBILE PHONES (< 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .brand-logo {
+    height: 25px;
+    max-width: 125px;
+  }
+
+  .header-actions .btn-whatsapp {
+    padding: 0.38rem 0.65rem;
+    font-size: 0.74rem;
+  }
+
+  .user-welcome-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .user-welcome-text {
+    font-size: 0.75rem;
+  }
+
+  .user-welcome-bar .section-tag {
+    align-self: flex-start;
+  }
+
+  .hero-headline {
+    font-size: 1.65rem;
+  }
+
+  .hero-trust-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .rating-score-num {
+    font-size: 3rem !important;
+  }
+
+  .reviews-rating-summary {
+    padding: 1.35rem 1rem !important;
+  }
+
+  .rating-main-stat {
+    gap: 0.85rem !important;
+  }
+
+  .review-card {
+    padding: 1.35rem 1rem !important;
+    min-width: 0 !important;
+  }
+
+  .write-review-card {
+    padding: 1.35rem 1rem !important;
+  }
+
+  .final-cta-card {
+    padding: 1.75rem 1rem !important;
+  }
+
+  .entry-gate-card {
+    padding: 1.15rem 0.85rem;
+  }
+
+  .entry-gate-header h1 {
+    font-size: 1.25rem;
   }
 }
 
@@ -4098,6 +4278,11 @@ dialog.custom-dialog::backdrop {
 
   .rating-breakdown-panel {
     width: 100%;
+    min-width: 0;
+  }
+
+  .reviews-carousel-track {
+    gap: 1.15rem;
   }
 
   .reviews-filter-bar {
@@ -4119,7 +4304,7 @@ dialog.custom-dialog::backdrop {
 
   .review-card {
     flex: 0 0 100%;
-    min-width: 260px;
+    min-width: 0;
     padding: 1.75rem 1.35rem;
   }
 

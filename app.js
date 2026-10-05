@@ -584,7 +584,7 @@
               </h4>
               <p>Wondering if your specific qualification and years of experience qualify you under ${data.defaultAuthority} regulations?</p>
               <button class="btn-primary" style="font-size: 0.9rem; padding: 0.75rem 1.25rem;" onclick="window.HealthserveApp.syncAndScrollToForm('${data.defaultAuthority}')">
-                Check My ${data.defaultAuthority} Eligibility — Free
+                Check My ${data.defaultAuthority} Eligibility
               </button>
             </div>
           </div>
@@ -1839,25 +1839,50 @@ Could you please provide guidance on what my specific next steps should be?`;
 
     // Touch & Pointer Drag Interaction (Momentum drag)
     if (viewport) {
+      let startY = 0;
+      let isHorizontalSwipe = false;
+
       viewport.addEventListener('pointerdown', (e) => {
         isDragging = true;
+        isHorizontalSwipe = false;
         startX = e.clientX;
+        startY = e.clientY;
         track.style.transition = 'none';
-        viewport.setPointerCapture(e.pointerId);
         pauseAutoRotate();
       });
 
       viewport.addEventListener('pointermove', (e) => {
         if (!isDragging) return;
-        const currentX = e.clientX;
-        const diffX = currentX - startX;
-        track.style.transform = `translateX(${prevTranslate + diffX}px)`;
+        const diffX = e.clientX - startX;
+        const diffY = e.clientY - startY;
+
+        if (!isHorizontalSwipe) {
+          // If moved vertically more than horizontally, allow native page scroll
+          if (Math.abs(diffY) > 8 && Math.abs(diffY) > Math.abs(diffX)) {
+            isDragging = false;
+            return;
+          }
+          if (Math.abs(diffX) > 8 && Math.abs(diffX) >= Math.abs(diffY)) {
+            isHorizontalSwipe = true;
+            try { viewport.setPointerCapture(e.pointerId); } catch(err) {}
+          }
+        }
+
+        if (isHorizontalSwipe) {
+          track.style.transform = `translateX(${prevTranslate + diffX}px)`;
+        }
       });
 
       const handlePointerEnd = (e) => {
         if (!isDragging) return;
         isDragging = false;
         try { viewport.releasePointerCapture(e.pointerId); } catch(err) {}
+
+        if (!isHorizontalSwipe) {
+          resetAutoRotate();
+          return;
+        }
+        isHorizontalSwipe = false;
 
         const cards = track.querySelectorAll('.review-card');
         if (!cards.length) return;
