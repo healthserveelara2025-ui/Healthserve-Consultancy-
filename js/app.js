@@ -190,6 +190,7 @@
     initFaqAccordion();
     initStickyBar();
     initWhatsAppLinks();
+    initReviewsSection();
 
     // Track entry gate view on initial load
     trackEvent('entry_gate_view');
@@ -1612,5 +1613,416 @@ Could you please provide guidance on what my specific next steps should be?`;
       }
     }
   };
+
+  // ==========================================
+  // REVIEWS & TESTIMONIALS CONTROLLER (120 REVIEWS)
+  // ==========================================
+  function initReviewsSection() {
+    const reviewsSection = document.getElementById('reviewsSection');
+    const track = document.getElementById('reviewsTrack');
+    const viewport = document.getElementById('reviewsViewport');
+    const prevBtn = document.getElementById('reviewsPrevBtn');
+    const nextBtn = document.getElementById('reviewsNextBtn');
+    const paginationDots = document.getElementById('reviewsPaginationDots');
+    const filterChips = document.querySelectorAll('.review-filter-chip');
+    const writeBtn = document.getElementById('writeReviewBtn');
+    const canvas = document.getElementById('reviewsConstellationCanvas');
+
+    if (!reviewsSection || !track) return;
+
+    // Configurable Google Review Destination URL
+    const REVIEW_URL = 'https://healthserve.ae/reviews';
+    if (writeBtn) {
+      writeBtn.href = REVIEW_URL;
+      writeBtn.setAttribute('target', '_blank');
+      writeBtn.setAttribute('rel', 'noopener noreferrer');
+      writeBtn.addEventListener('click', (e) => {
+        if (!REVIEW_URL || REVIEW_URL === '#') {
+          e.preventDefault();
+          alert('Healthserve review portal will open shortly. Thank you for sharing your experience!');
+        } else {
+          trackEvent('review_cta_click');
+        }
+      });
+    }
+
+    // Safety fallback for reviews dataset
+    const reviewsData = (typeof HEALTHSERVE_REVIEWS_DATA !== 'undefined' && Array.isArray(HEALTHSERVE_REVIEWS_DATA))
+      ? HEALTHSERVE_REVIEWS_DATA
+      : [];
+
+    if (!reviewsData.length) return;
+
+    let currentCategory = 'ALL';
+    let filteredReviews = [...reviewsData];
+    let currentIndex = 0;
+    let autoRotateTimer = null;
+    let isInteracting = false;
+    let isDragging = false;
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+
+    // Calculate items visible per page based on viewport width
+    function getCardsPerView() {
+      const w = window.innerWidth;
+      if (w <= 768) return 1;
+      if (w <= 1100) return 2;
+      return 3;
+    }
+
+    // Render Review Cards
+    function renderCards() {
+      track.innerHTML = '';
+
+      filteredReviews.forEach((r) => {
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        card.setAttribute('data-id', r.id);
+        card.setAttribute('data-category', r.category);
+
+        // Generate gold stars
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+          starsHtml += `<span class="star-glyph">${i <= r.rating ? '★' : '☆'}</span>`;
+        }
+
+        const country = r.country || 'Global';
+        const initial = r.name ? r.name.charAt(0).toUpperCase() : 'H';
+
+        card.innerHTML = `
+          <div class="review-card-top">
+            <div class="review-stars" aria-label="${r.rating} out of 5 stars">${starsHtml}</div>
+            <span class="review-category-badge">${r.category || 'General'}</span>
+          </div>
+          <p class="review-quote-text">"${r.review}"</p>
+          <div class="review-author-wrap">
+            <div class="review-avatar-circle" aria-hidden="true">${initial}</div>
+            <div class="review-author-info">
+              <span class="review-author-name">${r.name}</span>
+              <span class="review-author-role">
+                <span>${r.profession}</span> · <span class="review-country-pill">${country}</span>
+              </span>
+            </div>
+          </div>
+        `;
+        track.appendChild(card);
+      });
+
+      updatePagination();
+      moveToIndex(0, false);
+    }
+
+    // Update Pagination Dots
+    function updatePagination() {
+      if (!paginationDots) return;
+      paginationDots.innerHTML = '';
+      const cardsPerView = getCardsPerView();
+      const totalPages = Math.ceil(filteredReviews.length / cardsPerView);
+      const maxDots = Math.min(totalPages, 8); // Display clean dot cluster
+
+      for (let i = 0; i < maxDots; i++) {
+        const dot = document.createElement('button');
+        dot.className = `reviews-dot ${i === 0 ? 'active' : ''}`;
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to review slide ${i + 1}`);
+        dot.addEventListener('click', () => {
+          moveToIndex(i * cardsPerView);
+          resetAutoRotate();
+        });
+        paginationDots.appendChild(dot);
+      }
+    }
+
+    function updateActiveDot() {
+      if (!paginationDots) return;
+      const dots = paginationDots.querySelectorAll('.reviews-dot');
+      if (!dots.length) return;
+      const cardsPerView = getCardsPerView();
+      const activePageIndex = Math.min(Math.floor(currentIndex / cardsPerView), dots.length - 1);
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === activePageIndex);
+      });
+    }
+
+    // Move to specific card index
+    function moveToIndex(index, animate = true) {
+      const cards = track.querySelectorAll('.review-card');
+      if (!cards.length) return;
+
+      const cardsPerView = getCardsPerView();
+      const maxIndex = Math.max(0, cards.length - cardsPerView);
+
+      // Clamp or cycle
+      if (index > maxIndex) {
+        currentIndex = 0;
+      } else if (index < 0) {
+        currentIndex = maxIndex;
+      } else {
+        currentIndex = index;
+      }
+
+      // Compute translate distance
+      const card = cards[0];
+      const cardRect = card.getBoundingClientRect();
+      const trackStyle = window.getComputedStyle(track);
+      const gap = parseFloat(trackStyle.gap) || 28;
+      const step = cardRect.width + gap;
+      const targetTranslate = -(currentIndex * step);
+
+      if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${targetTranslate}px)`;
+      } else {
+        track.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        track.style.transform = `translateX(${targetTranslate}px)`;
+      }
+
+      prevTranslate = targetTranslate;
+      currentTranslate = targetTranslate;
+
+      if (prevBtn) prevBtn.disabled = (currentIndex === 0);
+      if (nextBtn) nextBtn.disabled = (currentIndex >= maxIndex && maxIndex > 0);
+
+      updateActiveDot();
+    }
+
+    // Next / Prev controls
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const cardsPerView = getCardsPerView();
+        moveToIndex(currentIndex + cardsPerView);
+        resetAutoRotate();
+        trackEvent('review_carousel_next');
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        const cardsPerView = getCardsPerView();
+        moveToIndex(currentIndex - cardsPerView);
+        resetAutoRotate();
+        trackEvent('review_carousel_prev');
+      });
+    }
+
+    // Filter Chips Event
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => {
+          c.classList.remove('active');
+          c.setAttribute('aria-selected', 'false');
+        });
+        chip.classList.add('active');
+        chip.setAttribute('aria-selected', 'true');
+
+        const cat = chip.getAttribute('data-category');
+        currentCategory = cat;
+
+        if (cat === 'ALL') {
+          filteredReviews = [...reviewsData];
+        } else if (cat === 'LICENSING') {
+          filteredReviews = reviewsData.filter(r => (r.category || '').toUpperCase().includes('LICENSING'));
+        } else if (cat === 'CAREER GUIDANCE') {
+          filteredReviews = reviewsData.filter(r => (r.category || '').toUpperCase().includes('CAREER'));
+        } else if (cat === 'TRAINING') {
+          filteredReviews = reviewsData.filter(r => (r.category || '').toUpperCase().includes('TRAINING'));
+        } else if (cat === 'EXAM PREPARATION') {
+          filteredReviews = reviewsData.filter(r => (r.category || '').toUpperCase().includes('EXAM'));
+        }
+
+        renderCards();
+        resetAutoRotate();
+        trackEvent('review_filter_click', { category: cat });
+      });
+    });
+
+    // Touch & Pointer Drag Interaction (Momentum drag)
+    if (viewport) {
+      viewport.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        track.style.transition = 'none';
+        viewport.setPointerCapture(e.pointerId);
+        pauseAutoRotate();
+      });
+
+      viewport.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const currentX = e.clientX;
+        const diffX = currentX - startX;
+        track.style.transform = `translateX(${prevTranslate + diffX}px)`;
+      });
+
+      const handlePointerEnd = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        try { viewport.releasePointerCapture(e.pointerId); } catch(err) {}
+
+        const cards = track.querySelectorAll('.review-card');
+        if (!cards.length) return;
+        const cardRect = cards[0].getBoundingClientRect();
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 28;
+        const step = cardRect.width + gap;
+        const movedBy = (e.clientX - startX);
+
+        if (movedBy < -50) {
+          moveToIndex(currentIndex + 1);
+        } else if (movedBy > 50) {
+          moveToIndex(currentIndex - 1);
+        } else {
+          moveToIndex(currentIndex);
+        }
+        resetAutoRotate();
+      };
+
+      viewport.addEventListener('pointerup', handlePointerEnd);
+      viewport.addEventListener('pointercancel', handlePointerEnd);
+
+      viewport.addEventListener('pointerenter', pauseAutoRotate);
+      viewport.addEventListener('pointerleave', resumeAutoRotate);
+      viewport.addEventListener('focusin', pauseAutoRotate);
+      viewport.addEventListener('focusout', resumeAutoRotate);
+    }
+
+    // Auto-Rotation Timer
+    function startAutoRotate() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (autoRotateTimer) clearInterval(autoRotateTimer);
+      autoRotateTimer = setInterval(() => {
+        if (!isInteracting && !isDragging) {
+          const cardsPerView = getCardsPerView();
+          moveToIndex(currentIndex + 1);
+        }
+      }, 5500);
+    }
+
+    function pauseAutoRotate() {
+      isInteracting = true;
+      if (autoRotateTimer) clearInterval(autoRotateTimer);
+    }
+
+    function resumeAutoRotate() {
+      isInteracting = false;
+      startAutoRotate();
+    }
+
+    function resetAutoRotate() {
+      pauseAutoRotate();
+      setTimeout(() => {
+        isInteracting = false;
+        startAutoRotate();
+      }, 4000);
+    }
+
+    // Resize recalculation
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        updatePagination();
+        moveToIndex(currentIndex, false);
+      }, 150);
+    });
+
+    // Initial render
+    renderCards();
+    startAutoRotate();
+
+    // ==========================================
+    // AMBIENT CONSTELLATION VISUAL (CANVAS)
+    // ==========================================
+    if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        let width = canvas.width = reviewsSection.offsetWidth;
+        let height = canvas.height = reviewsSection.offsetHeight;
+        let animFrame = null;
+        let isSectionVisible = false;
+
+        const particleCount = 28;
+        const particles = [];
+        const colors = ['#30C4F2', '#0284C7', '#FAA30C'];
+
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            radius: Math.random() * 1.8 + 1.2,
+            color: colors[Math.floor(Math.random() * colors.length)]
+          });
+        }
+
+        function drawConstellation() {
+          if (!isSectionVisible) return;
+          ctx.clearRect(0, 0, width, height);
+
+          // Draw connecting links
+          for (let i = 0; i < particleCount; i++) {
+            for (let j = i + 1; j < particleCount; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 120) {
+                const alpha = (1 - dist / 120) * 0.15;
+                ctx.strokeStyle = `rgba(48, 196, 242, ${alpha})`;
+                ctx.lineWidth = 0.85;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          // Draw particles
+          particles.forEach(p => {
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = 0.65;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
+          });
+
+          animFrame = requestAnimationFrame(drawConstellation);
+        }
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = reviewsSection.offsetWidth;
+          height = canvas.height = reviewsSection.offsetHeight;
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              isSectionVisible = true;
+              if (!animFrame) animFrame = requestAnimationFrame(drawConstellation);
+            } else {
+              isSectionVisible = false;
+              if (animFrame) {
+                cancelAnimationFrame(animFrame);
+                animFrame = null;
+              }
+            }
+          });
+        }, { threshold: 0.1 });
+
+        observer.observe(reviewsSection);
+      }
+    }
+  }
+
+  window.HealthserveApp = HealthserveApp;
 
 })();
