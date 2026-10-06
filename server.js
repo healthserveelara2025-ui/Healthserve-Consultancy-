@@ -28,29 +28,36 @@ const server = http.createServer((req, res) => {
       req.on('data', chunk => body += chunk);
       req.on('end', () => {
         try {
-          const lead = JSON.parse(body || '{}');
+          const raw = JSON.parse(body || '{}');
+          const cleanLead = {
+            timestamp: new Date().toISOString(),
+            source_form: String(raw.source_form || 'Website Form').slice(0, 100),
+            profession: String(raw.profession || '').slice(0, 100),
+            destination: String(raw.destination || '').slice(0, 100),
+            experience: String(raw.experience || '').slice(0, 50),
+            journey_stage: String(raw.journey_stage || '').slice(0, 100),
+            name: String(raw.name || '').slice(0, 120),
+            whatsapp: String(raw.whatsapp || '').slice(0, 30)
+          };
           let leads = [];
           if (fs.existsSync(leadsFile)) {
             try { leads = JSON.parse(fs.readFileSync(leadsFile, 'utf8')); } catch (e) {}
           }
-          leads.unshift(lead);
+          leads.unshift(cleanLead);
           fs.writeFileSync(leadsFile, JSON.stringify(leads, null, 2));
-          console.log(`[Lead Recorded] Total leads: ${leads.length} | Name: ${lead.name || 'Anonymous'} | Phone: ${lead.whatsapp || 'N/A'}`);
+          console.log(`[Lead Recorded] Count: ${leads.length} | Profession: ${cleanLead.profession || 'N/A'} | Destination: ${cleanLead.destination || 'N/A'}`);
           res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
           res.end(JSON.stringify({ status: 'success', recorded: true, count: leads.length }));
         } catch (err) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ status: 'error', message: err.message }));
+          res.end(JSON.stringify({ status: 'error', message: 'Invalid lead payload' }));
         }
       });
       return;
     } else if (req.method === 'GET') {
-      let leads = [];
-      if (fs.existsSync(leadsFile)) {
-        try { leads = JSON.parse(fs.readFileSync(leadsFile, 'utf8')); } catch (e) {}
-      }
-      res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-      res.end(JSON.stringify({ count: leads.length, leads }));
+      // Disallow public exposure of sensitive applicant lead contact data
+      res.writeHead(403, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ status: 'error', message: 'Access forbidden: Lead data is confidential' }));
       return;
     }
   }
@@ -63,26 +70,38 @@ const server = http.createServer((req, res) => {
       req.on('data', chunk => body += chunk);
       req.on('end', () => {
         try {
-          const review = JSON.parse(body || '{}');
-          if (!review.name || !review.review) {
+          const raw = JSON.parse(body || '{}');
+          const name = String(raw.name || '').trim().slice(0, 100);
+          const reviewText = String(raw.review || '').trim().slice(0, 1000);
+          if (!name || !reviewText) {
             res.writeHead(400, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ status: 'error', message: 'Name and review text are required' }));
             return;
           }
-          if (!review.id) review.id = 'user_' + Date.now();
-          if (!review.timestamp) review.timestamp = new Date().toISOString();
+          const cleanReview = {
+            id: 'user_' + Date.now(),
+            name: name,
+            profession: String(raw.profession || 'Healthcare Professional').trim().slice(0, 100),
+            country: String(raw.country || 'Global').trim().slice(0, 60),
+            rating: Math.min(5, Math.max(1, parseInt(raw.rating, 10) || 5)),
+            category: String(raw.category || 'Licensing & Career Guidance').trim().slice(0, 60),
+            review: reviewText,
+            status: 'approved',
+            isLiveUserReview: true,
+            timestamp: new Date().toISOString()
+          };
           let reviews = [];
           if (fs.existsSync(reviewsFile)) {
             try { reviews = JSON.parse(fs.readFileSync(reviewsFile, 'utf8')); } catch (e) {}
           }
-          reviews.unshift(review);
+          reviews.unshift(cleanReview);
           fs.writeFileSync(reviewsFile, JSON.stringify(reviews, null, 2));
-          console.log(`[Review Recorded] Total user reviews: ${reviews.length} | Name: ${review.name} | Rating: ${review.rating}★ | Category: ${review.category}`);
+          console.log(`[Review Recorded] Count: ${reviews.length} | Rating: ${cleanReview.rating}★ | Category: ${cleanReview.category}`);
           res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-          res.end(JSON.stringify({ status: 'success', recorded: true, count: reviews.length, review }));
+          res.end(JSON.stringify({ status: 'success', recorded: true, count: reviews.length, review: cleanReview }));
         } catch (err) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ status: 'error', message: err.message }));
+          res.end(JSON.stringify({ status: 'error', message: 'Invalid review payload' }));
         }
       });
       return;

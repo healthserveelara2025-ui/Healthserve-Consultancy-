@@ -26,10 +26,10 @@ A high-end, editorial, conversion-focused landing page engineered for Google Ads
 2. **Hero Section (Cinematic Editorial Composition)**:
    - **Left**: Bold headline (*"Your GCC Healthcare Licence Starts With the Right Path."*), supporting lead, dual CTAs (*"Check My Eligibility"* and *"Talk to an Advisor"*), and regulated authorities badge row.
    - **Right**: Asymmetric composition featuring `assets/hero-nurse-dubai.jpg` (licensed South Asian nurse in a sunlit modern Dubai hospital corridor overlooking the city skyline) with a floating glass info badge (*"Licensing Guidance • Eligibility • Verification • Registration"*).
-3. **Slim Trust Strip**: Clean typographic badge strip highlighting `DHA`, `DOH`, `MOHAP`, `SCFHS`, `DHP`, `NHRA`, and `OMSB`.
+3. **Slim Trust Strip**: Clean typographic badge strip highlighting `DHA`, `DOH`, `SHA`, `MOHAP`, `SCFHS`, `DHP`, `NHRA`, and `OMSB`.
 4. **The Interactive Hook ("Where Are You Planning to Practise?")**:
    - 7 large interactive profession cards: *Nurse*, *Doctor*, *Dentist*, *Pharmacist*, *Physiotherapist*, *Allied Health*, *Other*.
-   - 5 regional GCC destination panels: *Saudi Arabia*, *UAE*, *Qatar*, *Bahrain*, *Oman*.
+   - 6 destination panels: *UAE*, *Sharjah (SHA)*, *Saudi Arabia*, *Qatar*, *Bahrain*, *Oman*.
    - Dynamic pathway card updating in real time with soft glowing borders and animated indicators.
 5. **"Your Path" Visual (5-Stage Animated Journey)**:
    - 01 Eligibility (*Review qualification and experience.*)
@@ -37,7 +37,7 @@ A high-end, editorial, conversion-focused landing page engineered for Google Ads
    - 03 Verification (*Primary source verification where applicable.*)
    - 04 Assessment\* (*Exam or assessment where applicable.*)
    - 05 Registration / Licence (*Proceed toward professional registration.*)
-6. **GCC Destination Showcase**: Dedicated interactive panels for UAE, Saudi Arabia, Qatar, Bahrain, and Oman with one-line regulatory context.
+6. **GCC Destination Showcase**: Dedicated interactive panels for UAE, Sharjah (SHA), Saudi Arabia, Qatar, Bahrain, and Oman with one-line regulatory context.
 7. **"Already Started?" Diagnostic Section**: Stage selector (*New Licence*, *Renewal*, *Transfer*, *Upgrade*, *Verification*, *Exam / Assessment*, *Other*) with an **"I'm Stuck →"** button triggering an instant diagnostic modal with pre-filled WhatsApp resolution.
 8. **Document / Verification Visual ("Know What Comes Next.")**: Ultra-realistic clinical visual (`assets/doctor-consultation.jpg`) with floating UI chips highlighting qualification, experience, and DataFlow primary source validation.
 9. **Why Healthserve ("Guidance Without the Guesswork.")**: 3 core principles (Eligibility First, Clear Process, Human Guidance) and an ethical disclaimer (*"We provide licensing guidance — not job or visa sales."*).

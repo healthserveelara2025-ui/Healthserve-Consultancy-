@@ -1579,7 +1579,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .destination-nav-tabs {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   background: #F8FAFC;
   border-bottom: 1px solid var(--border-subtle);
 }

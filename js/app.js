@@ -21,10 +21,37 @@
   const HEALTHSERVE_PHONE = '+971 502720059';
   const HEALTHSERVE_WHATSAPP_NUM = '971502720059';
 
+  // HTML escaping utility for sanitizing user-generated content & testimonials
+  function escapeHtml(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Canonical authority mapping helper for analytics & event consistency
+  function getAuthorityCode(dest) {
+    if (!dest) return 'GCC';
+    const d = String(dest).toUpperCase();
+    if (d.includes('SHA') || d.includes('SHARJAH')) return 'SHA';
+    if (d.includes('DHA') || d.includes('DUBAI')) return 'DHA';
+    if (d.includes('DOH') || d.includes('ABU DHABI') || d.includes('HAAD')) return 'DOH';
+    if (d.includes('MOHAP')) return 'MOHAP';
+    if (d.includes('SCFHS') || d.includes('SAUDI')) return 'SCFHS';
+    if (d.includes('DHP') || d.includes('QATAR') || d.includes('QCHP')) return 'DHP';
+    if (d.includes('NHRA') || d.includes('BAHRAIN')) return 'NHRA';
+    if (d.includes('OMSB') || d.includes('OMAN')) return 'OMSB';
+    return 'GCC';
+  }
+
   // Initialize dataLayer for Google Tag Manager / Google Ads
   window.dataLayer = window.dataLayer || [];
 
   function trackEvent(eventName, customParams = {}) {
+    const rawDest = customParams.destination || leadState.destination || '';
     const eventPayload = {
       event: eventName,
       timestamp: new Date().toISOString(),
@@ -34,6 +61,7 @@
         has_whatsapp: Boolean(leadState.whatsapp),
         profession: leadState.profession,
         destination: leadState.destination,
+        authority: getAuthorityCode(leadState.destination),
         journey_stage: leadState.journey_stage,
         experience: leadState.experience
       },
@@ -44,11 +72,11 @@
         utm_term: leadState.utm_term,
         gclid: leadState.gclid
       },
+      authority: rawDest ? getAuthorityCode(rawDest) : undefined,
       ...customParams
     };
 
     window.dataLayer.push(eventPayload);
-    console.log('[Analytics Event]', eventName, eventPayload);
   }
 
   // Google Sheets Webhook URL (Target Sheet: https://docs.google.com/spreadsheets/d/1g6W43-BMVKRhh_C87RNIshg3TF54gIt9Mcq8bQLn6pQ/edit)
@@ -464,8 +492,8 @@
   const destinationData = {
     uae: {
       title: 'United Arab Emirates (UAE)',
-      regulators: ['DHA (Dubai)', 'DOH (Abu Dhabi)', 'MOHAP (Northern Emirates)'],
-      overview: 'The UAE operates three distinct healthcare regulatory bodies. Dubai facilities fall under Dubai Health Authority (DHA), Abu Dhabi and Al Ain under Department of Health (DOH), while Sharjah, Ajman, RAK, Fujairah, and UAQ fall under MOHAP. Professionals can also benefit from the Unified Healthcare Professional Qualification Requirements (PQR).',
+      regulators: ['DHA (Dubai)', 'DOH (Abu Dhabi)', 'SHA (Sharjah)', 'MOHAP (Northern Emirates)'],
+      overview: 'The UAE operates distinct healthcare regulatory bodies. Dubai facilities fall under Dubai Health Authority (DHA), Abu Dhabi and Al Ain under Department of Health (DOH), Sharjah under Sharjah Health Authority (SHA) and MOHAP, while the Northern Emirates fall under MOHAP. Professionals can also benefit from the Unified Healthcare Professional Qualification Requirements (PQR).',
       checklist: [
         'Primary Source Verification (DataFlow PSV) required for qualifications, experience & licensing',
         'Prometric or Pearson VUE Computer-Based Testing (CBT) / Oral assessment where applicable',
@@ -473,6 +501,21 @@
         'Eligibility Letter granted upon passing enables direct facility job sponsorship'
       ],
       defaultAuthority: 'DHA / DOH / MOHAP'
+    },
+    sha: {
+      title: 'Sharjah (SHA)',
+      regulators: ['Sharjah Health Authority (SHA)'],
+      overview: 'Sharjah Health Authority (SHA) regulates healthcare professional assessment and licensing in the Emirate of Sharjah (sha.shj.ae). Relevant SHA professional services include Healthcare Professional Assessment, Healthcare Professional License issuance, Renewal, Transfer, and Good Standing certificates. The Healthcare Professional Assessment service is used to obtain an assessment certificate based on educational qualifications and professional experience. Assessment is part of the pathway; the official professional licence is required to practise.',
+      checklist: [
+        'Healthcare Professional Assessment based on recognized qualifications and clinical experience',
+        'Primary Source Verification (DataFlow PSV) and credential dossier evaluation',
+        'Assessment is part of the pathway; the official professional licence is required to practise',
+        'Comprehensive support for professional licence issuance, renewals, facility transfers & good standing'
+      ],
+      defaultAuthority: 'Sharjah (SHA)',
+      cardTitle: 'Sharjah Health Authority (SHA)',
+      cardDesc: 'Healthcare professional assessment, licensing and related professional services.',
+      ctaText: 'Explore SHA Pathway →'
     },
     saudi: {
       title: 'Kingdom of Saudi Arabia (KSA)',
@@ -538,7 +581,7 @@
         const data = destinationData[destKey];
         if (!data) return;
 
-        leadState.destination = data.title;
+        leadState.destination = data.defaultAuthority || data.title;
         saveLeadState();
 
         trackEvent('pathway_selection', {
@@ -580,11 +623,11 @@
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                   <polyline points="14 2 14 8 20 8"></polyline>
                 </svg>
-                Explore Your Pathway for ${data.defaultAuthority}
+                ${data.cardTitle || ('Explore Your Pathway for ' + data.defaultAuthority)}
               </h4>
-              <p>Wondering if your specific qualification and years of experience qualify you under ${data.defaultAuthority} regulations?</p>
+              <p>${data.cardDesc || ('Wondering if your specific qualification and years of experience qualify you under ' + data.defaultAuthority + ' regulations?')}</p>
               <button class="btn-primary" style="font-size: 0.9rem; padding: 0.75rem 1.25rem;" onclick="window.HealthserveApp.syncAndScrollToForm('${data.defaultAuthority}')">
-                Check My ${data.defaultAuthority} Eligibility
+                ${data.ctaText || ('Check My ' + data.defaultAuthority + ' Eligibility')}
               </button>
             </div>
           </div>
@@ -835,7 +878,7 @@ Could you please review my eligibility and guide me on the next step?`;
     'new-license': {
       title: 'New Professional Licence',
       subtitle: 'Apply for your first professional healthcare licence with structured documentation support.',
-      summary: 'For doctors, nurses, and allied healthcare professionals applying for their first GCC licence (DHA, MOHAP, DOH, SCFHS, DHP, NHRA, OMSB).',
+      summary: 'For doctors, nurses, and allied healthcare professionals applying for their first GCC licence (DHA, DOH, SHA, MOHAP, SCFHS, DHP, NHRA, OMSB).',
       whatWeHelpWith: [
         'Complete credential evaluation against destination Healthcare Professional Qualification Requirements (PQR)',
         'Primary Source Verification (DataFlow PSV) filing and document validation',
@@ -860,9 +903,9 @@ Could you please review my eligibility and guide me on the next step?`;
     'license-transfer': {
       title: 'Licence Transfer Between Facilities / Regulators',
       subtitle: 'Seamlessly transfer your existing healthcare licence to a new medical facility or authority.',
-      summary: 'Moving between healthcare facilities within the same emirate, or converting between DHA, MOHAP, and DOH under the Unified Healthcare framework.',
+      summary: 'Moving between healthcare facilities within the same emirate, or converting between DHA, MOHAP, DOH, and SHA under applicable UAE regulatory frameworks.',
       whatWeHelpWith: [
-        'Inter-authority licence conversion (e.g. DHA to DOH or MOHAP) without retaking exams',
+        'Inter-authority licence conversion (e.g. DHA to DOH, SHA, or MOHAP) without retaking exams where eligible',
         'Facility transfer clearance and cancellation processing from previous sponsor',
         'Verification of existing DataFlow reports and transferring existing report records',
         'Issuance of updated active clinical practice licence with new employer'
@@ -912,7 +955,7 @@ Could you please review my eligibility and guide me on the next step?`;
       whatWeHelpWith: [
         'Liaison with State Nursing Councils, Medical Councils, or Pharmacy Councils in India/Nepal',
         'Direct council-to-regulator submission compliance',
-        'Obtaining CGS from DHA, DOH, MOHAP, or SCFHS for international migration',
+        'Obtaining CGS from DHA, DOH, SHA, MOHAP, or SCFHS for international migration',
         'Ensuring valid date windows for licensing dossier submission'
       ],
       commonRoadblocks: 'Council delays leading to expired certificates, or non-compliance with digital council verification standards.'
@@ -1070,6 +1113,7 @@ Could you please review my eligibility and guide me on the next step?`;
             <select id="toolDest" class="form-select-custom">
               <option value="uae_dha">Dubai (DHA)</option>
               <option value="uae_doh">Abu Dhabi (DOH)</option>
+              <option value="uae_sha">Sharjah (SHA)</option>
               <option value="uae_mohap">UAE Northern Emirates (MOHAP)</option>
               <option value="saudi">Saudi Arabia (SCFHS)</option>
               <option value="qatar">Qatar (DHP / QCHP)</option>
@@ -1099,6 +1143,12 @@ Could you please review my eligibility and guide me on the next step?`;
                 <td style="padding: 0.75rem 0.5rem; font-weight: 700;">UAE (DHA / DOH / MOHAP)</td>
                 <td style="padding: 0.75rem 0.5rem;">DataFlow PSV</td>
                 <td style="padding: 0.75rem 0.5rem;">Prometric / Pearson CBT (where applicable)</td>
+                <td style="padding: 0.75rem 0.5rem;">6 to 12 weeks</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.75rem 0.5rem; font-weight: 700;">Sharjah (SHA)</td>
+                <td style="padding: 0.75rem 0.5rem;">DataFlow PSV / Credential Assessment</td>
+                <td style="padding: 0.75rem 0.5rem;">Assessment / CBT (where applicable)</td>
                 <td style="padding: 0.75rem 0.5rem;">6 to 12 weeks</td>
               </tr>
               <tr style="border-bottom: 1px solid var(--border-subtle);">
@@ -1506,7 +1556,7 @@ Could you please review my eligibility and guide me on the next step?`;
       let msg = '';
 
       if (prof.includes('nurse_bsc')) {
-        msg = '<strong>B.Sc Nursing:</strong> Recognized for Registered Nurse title across UAE (DHA/DOH/MOHAP) and Saudi (SCFHS). Typical prerequisite: Minimum 2 continuous years post-registration experience in a hospital setting of at least 50-100 beds.';
+        msg = '<strong>B.Sc Nursing:</strong> Recognized for Registered Nurse title across UAE (DHA/DOH/SHA/MOHAP) and Saudi (SCFHS). Typical prerequisite: Minimum 2 continuous years post-registration experience in a hospital setting of at least 50-100 beds.';
       } else if (prof.includes('nurse_gnm')) {
         msg = '<strong>GNM / Diploma Nursing:</strong> Eligible for Assistant Nurse / Staff Nurse category under MOHAP and select GCC pathways. Some authorities require additional clinical years or qualification elevation.';
       } else if (prof.includes('doctor')) {
@@ -1779,8 +1829,12 @@ Could you please provide guidance on what my specific next steps should be?`;
           starsHtml += `<span class="star-glyph">${i <= r.rating ? '★' : '☆'}</span>`;
         }
 
-        const country = r.country || 'Global';
-        const initial = r.name ? r.name.charAt(0).toUpperCase() : 'H';
+        const safeReview = escapeHtml(r.review);
+        const safeName = escapeHtml(r.name);
+        const safeProfession = escapeHtml(r.profession);
+        const safeCountry = escapeHtml(r.country || 'Global');
+        const safeCategory = escapeHtml(r.category || 'General');
+        const initial = safeName ? safeName.charAt(0).toUpperCase() : 'H';
         const liveBadgeHtml = r.isLiveUserReview
           ? `<span class="review-live-pill"><span class="live-dot" style="width: 6px; height: 6px;"></span> Live Review</span>`
           : '';
@@ -1789,17 +1843,17 @@ Could you please provide guidance on what my specific next steps should be?`;
           <div class="review-card-top">
             <div class="review-stars" aria-label="${r.rating} out of 5 stars">${starsHtml}</div>
             <div style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end;">
-              <span class="review-category-badge">${r.category || 'General'}</span>
+              <span class="review-category-badge">${safeCategory}</span>
               ${liveBadgeHtml}
             </div>
           </div>
-          <p class="review-quote-text">"${r.review}"</p>
+          <p class="review-quote-text">"${safeReview}"</p>
           <div class="review-author-wrap">
             <div class="review-avatar-circle" aria-hidden="true">${initial}</div>
             <div class="review-author-info">
-              <span class="review-author-name">${r.name}</span>
+              <span class="review-author-name">${safeName}</span>
               <span class="review-author-role">
-                <span>${r.profession}</span> · <span class="review-country-pill">${country}</span>
+                <span>${safeProfession}</span> · <span class="review-country-pill">${safeCountry}</span>
               </span>
             </div>
           </div>
