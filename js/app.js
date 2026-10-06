@@ -320,6 +320,8 @@
 
     countryCodeSelect.addEventListener('change', () => {
       leadState.country_code = countryCodeSelect.value;
+      const hookCC = document.getElementById('hookCountryCode');
+      if (hookCC) hookCC.value = countryCodeSelect.value;
     });
 
     // If previously completed in this session, hide gate smoothly & remove from display
@@ -764,8 +766,15 @@
       const cleanPhone = leadState.whatsapp.replace(/^\+\d+\s*/, '');
       phoneInput.value = cleanPhone || leadState.whatsapp;
     }
-    if (leadState.country_code && countryCodeSelect) {
-      countryCodeSelect.value = leadState.country_code;
+    if (countryCodeSelect) {
+      if (leadState.country_code) {
+        countryCodeSelect.value = leadState.country_code;
+      }
+      countryCodeSelect.addEventListener('change', () => {
+        leadState.country_code = countryCodeSelect.value;
+        const gateCC = document.getElementById('gateCountryCode');
+        if (gateCC) gateCC.value = countryCodeSelect.value;
+      });
     }
 
     form.addEventListener('submit', (e) => {

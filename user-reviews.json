@@ -1,5 +1,17 @@
 [
   {
+    "id": "user_1791272649457",
+    "name": "Dr. Tariq Al-Hashimi",
+    "profession": "Specialist Physician",
+    "country": "Jordan",
+    "rating": 5,
+    "category": "Licensing",
+    "review": "Consulted on Sharjah Health Authority (SHA) assessment certificate and licensing process. Clear guidance on practice requirements.",
+    "status": "approved",
+    "isLiveUserReview": true,
+    "timestamp": "2026-10-06T07:44:09.458Z"
+  },
+  {
     "id": "user_1791269777902",
     "name": "Dr. Tariq Al-Hashimi",
     "profession": "Specialist Physician",
