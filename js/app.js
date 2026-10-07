@@ -219,6 +219,7 @@
     initStickyBar();
     initWhatsAppLinks();
     initReviewsSection();
+    initAuthorityCoverageBanner();
 
     // Track entry gate view on initial load
     trackEvent('entry_gate_view');
@@ -2391,6 +2392,31 @@ Could you please provide guidance on what my specific next steps should be?`;
 
         observer.observe(reviewsSection);
       }
+    }
+  }
+
+  // ==========================================
+  // GCC HEALTHCARE AUTHORITY COVERAGE SECTION ANIMATION
+  // ==========================================
+  function initAuthorityCoverageBanner() {
+    const banner = document.getElementById('authorityCoverageBanner');
+    if (!banner) return;
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            banner.classList.add('in-view');
+            observer.unobserve(banner);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+      observer.observe(banner);
+    } else {
+      banner.classList.add('in-view');
     }
   }
 
