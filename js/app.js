@@ -18,8 +18,8 @@
   // ==========================================
   // CONFIGURATION & CONSTANTS
   // ==========================================
-  const HEALTHSERVE_PHONE = '+971 502720059';
-  const HEALTHSERVE_WHATSAPP_NUM = '971502720059';
+  const HEALTHSERVE_PHONE = '+971 52 394 1876';
+  const HEALTHSERVE_WHATSAPP_NUM = '971523941876';
 
   // HTML escaping utility for sanitizing user-generated content & testimonials
   function escapeHtml(str) {
